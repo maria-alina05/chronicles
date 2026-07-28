@@ -1,0 +1,20 @@
+{
+  "name": "chronicles-of-zanuff-and-marabeige",
+  "version": "1.0.0",
+  "description": "The Chronicles of Zanuff and Marabeige - A 2-player co-op love story arcade game",
+  "scripts": {
+    "start": "npx http-server . -p 8080 -o",
+    "dev": "npx http-server . -p 8080 -c-1 -o"
+  },
+  "keywords": [
+    "game",
+    "phaser3",
+    "co-op",
+    "love-story"
+  ],
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "qrcode": "^1.5.4"
+  }
+}
