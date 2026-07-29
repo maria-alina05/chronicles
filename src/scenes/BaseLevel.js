@@ -200,7 +200,13 @@ export class BaseLevel extends Phaser.Scene {
             'paper': { health: 4, speed: 35, damage: 1, xpValue: 3, scale: 1.3 },
             'box': { health: 3, speed: 65, damage: 1, xpValue: 2 },
             'butterfly': { health: 1, speed: 90, damage: 1, xpValue: 1 },
-            'tourist': { health: 2, speed: 55, damage: 1, xpValue: 1 }
+            'tourist': { health: 2, speed: 55, damage: 1, xpValue: 1 },
+            'mcdonalds': { health: 2, speed: 65, damage: 1, xpValue: 1 },
+            'bmw': { health: 3, speed: 70, damage: 1, xpValue: 2, scale: 1.1 },
+            'ring': { health: 2, speed: 50, damage: 1, xpValue: 2 },
+            'wedding': { health: 3, speed: 55, damage: 1, xpValue: 2 },
+            'keys': { health: 2, speed: 75, damage: 1, xpValue: 1 },
+            'cake': { health: 4, speed: 40, damage: 1, xpValue: 3, scale: 1.2 }
         };
         return { ...(configs[type] || configs['generic']) };
     }

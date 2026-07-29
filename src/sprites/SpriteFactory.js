@@ -368,10 +368,14 @@ function drawMarabeige(gfx) {
     gfx.fillStyle(0xf0c8a8);
     gfx.fillRect(23, 19, 2, 3);
 
-    // Smile (red lipstick)
+    // Smile (red lipstick, open toothy smile)
     gfx.fillStyle(0xcc2244);
     gfx.fillRect(20, 24, 8, 2);
-    gfx.fillRect(21, 26, 6, 1);
+    gfx.fillRect(21, 26, 6, 2);
+    // Teeth
+    gfx.fillStyle(0xffffff);
+    gfx.fillRect(22, 24, 5, 2);
+    gfx.fillRect(22, 26, 5, 1);
 
     // Necklace
     gfx.fillStyle(0xcccccc);
@@ -459,10 +463,14 @@ function drawMarabeigeJump(gfx) {
     gfx.fillRect(18, 9, 5, 1);
     gfx.fillRect(28, 9, 5, 1);
 
-    // Smile (red lipstick)
+    // Smile (red lipstick, open toothy smile)
     gfx.fillStyle(0xcc2244);
     gfx.fillRect(20, 22, 8, 2);
-    gfx.fillRect(21, 24, 6, 1);
+    gfx.fillRect(21, 24, 6, 2);
+    // Teeth
+    gfx.fillStyle(0xffffff);
+    gfx.fillRect(22, 22, 5, 2);
+    gfx.fillRect(22, 24, 5, 1);
 
     // Necklace
     gfx.fillStyle(0xcccccc);
@@ -695,6 +703,118 @@ export function createEnemySprites(scene) {
     teamsGfx.fillRect(30, 6, 4, 4); // "!" 
     teamsGfx.generateTexture('enemy-teams', 40, 40);
     teamsGfx.destroy();
+
+    // McDonald's food (burger/fries)
+    const mcGfx = scene.make.graphics({ x: 0, y: 0, add: false });
+    mcGfx.fillStyle(0xffcc00); // top bun
+    mcGfx.fillCircle(20, 12, 12);
+    mcGfx.fillStyle(0x8B4513); // patty
+    mcGfx.fillRect(8, 16, 24, 6);
+    mcGfx.fillStyle(0x228b22); // lettuce
+    mcGfx.fillRect(7, 14, 26, 3);
+    mcGfx.fillStyle(0xff0000); // ketchup
+    mcGfx.fillRect(10, 22, 20, 2);
+    mcGfx.fillStyle(0xffcc00); // bottom bun
+    mcGfx.fillRect(8, 24, 24, 6);
+    mcGfx.fillStyle(0xff0000); // M arches
+    mcGfx.fillRect(14, 32, 3, 6); mcGfx.fillRect(23, 32, 3, 6);
+    mcGfx.fillRect(16, 30, 2, 2); mcGfx.fillRect(22, 30, 2, 2);
+    mcGfx.fillRect(18, 29, 4, 2);
+    mcGfx.generateTexture('enemy-mcdonalds', 40, 40);
+    mcGfx.destroy();
+
+    // BMW logo
+    const bmwGfx = scene.make.graphics({ x: 0, y: 0, add: false });
+    bmwGfx.fillStyle(0x333333); // outer ring
+    bmwGfx.fillCircle(20, 20, 16);
+    bmwGfx.fillStyle(0x1a1a1a); // inner ring
+    bmwGfx.fillCircle(20, 20, 14);
+    bmwGfx.fillStyle(0x0066cc); // blue quadrants
+    bmwGfx.fillRect(20, 6, 14, 14);
+    bmwGfx.fillRect(6, 20, 14, 14);
+    bmwGfx.fillStyle(0xffffff); // white quadrants
+    bmwGfx.fillRect(6, 6, 14, 14);
+    bmwGfx.fillRect(20, 20, 14, 14);
+    // Clip to circle with dark overlay on corners
+    bmwGfx.fillStyle(0x1a1a1a);
+    bmwGfx.fillRect(0, 0, 6, 40); bmwGfx.fillRect(34, 0, 6, 40);
+    bmwGfx.fillRect(0, 0, 40, 4); bmwGfx.fillRect(0, 36, 40, 4);
+    bmwGfx.generateTexture('enemy-bmw', 40, 40);
+    bmwGfx.destroy();
+
+    // Ring (engagement/wedding ring)
+    const ringGfx = scene.make.graphics({ x: 0, y: 0, add: false });
+    ringGfx.lineStyle(4, 0xffd700);
+    ringGfx.strokeCircle(20, 22, 12);
+    ringGfx.fillStyle(0xffd700);
+    ringGfx.fillCircle(20, 22, 12);
+    ringGfx.fillStyle(0x1a1a2e); // hole
+    ringGfx.fillCircle(20, 22, 8);
+    // Diamond on top
+    ringGfx.fillStyle(0x88ddff);
+    ringGfx.fillRect(16, 6, 8, 8);
+    ringGfx.fillStyle(0xaaeeff);
+    ringGfx.fillRect(18, 4, 4, 4);
+    ringGfx.fillStyle(0xffffff);
+    ringGfx.fillRect(19, 5, 2, 2);
+    ringGfx.generateTexture('enemy-ring', 40, 40);
+    ringGfx.destroy();
+
+    // Wedding items (champagne glass)
+    const weddingGfx = scene.make.graphics({ x: 0, y: 0, add: false });
+    weddingGfx.fillStyle(0xaaddff, 0.7); // glass bowl
+    weddingGfx.fillCircle(20, 12, 10);
+    weddingGfx.fillStyle(0xffdd44, 0.6); // champagne liquid
+    weddingGfx.fillCircle(20, 14, 7);
+    weddingGfx.fillStyle(0xcccccc); // stem
+    weddingGfx.fillRect(18, 22, 4, 10);
+    weddingGfx.fillStyle(0xcccccc); // base
+    weddingGfx.fillRect(14, 32, 12, 3);
+    // Bubbles
+    weddingGfx.fillStyle(0xffffff, 0.7);
+    weddingGfx.fillCircle(18, 10, 2); weddingGfx.fillCircle(22, 8, 1.5);
+    weddingGfx.generateTexture('enemy-wedding', 40, 40);
+    weddingGfx.destroy();
+
+    // Keys (house keys)
+    const keysGfx = scene.make.graphics({ x: 0, y: 0, add: false });
+    keysGfx.fillStyle(0xccaa44); // key head (circle)
+    keysGfx.fillCircle(14, 14, 8);
+    keysGfx.fillStyle(0x1a1a2e); // key hole
+    keysGfx.fillCircle(14, 14, 4);
+    keysGfx.fillStyle(0xccaa44); // key shaft
+    keysGfx.fillRect(20, 12, 16, 4);
+    // Key teeth
+    keysGfx.fillRect(30, 16, 3, 4); keysGfx.fillRect(34, 16, 3, 4);
+    keysGfx.fillRect(26, 16, 3, 3);
+    // Second key
+    keysGfx.fillStyle(0xaaaaaa);
+    keysGfx.fillCircle(16, 26, 6);
+    keysGfx.fillStyle(0x1a1a2e);
+    keysGfx.fillCircle(16, 26, 3);
+    keysGfx.fillStyle(0xaaaaaa);
+    keysGfx.fillRect(22, 24, 12, 3);
+    keysGfx.fillRect(30, 27, 3, 3); keysGfx.fillRect(26, 27, 3, 3);
+    keysGfx.generateTexture('enemy-keys', 40, 40);
+    keysGfx.destroy();
+
+    // Cake (wedding cake)
+    const cakeGfx = scene.make.graphics({ x: 0, y: 0, add: false });
+    cakeGfx.fillStyle(0xffffff); // bottom tier
+    cakeGfx.fillRect(6, 26, 28, 10);
+    cakeGfx.fillStyle(0xffeeee); // middle tier
+    cakeGfx.fillRect(10, 16, 20, 10);
+    cakeGfx.fillStyle(0xffffff); // top tier
+    cakeGfx.fillRect(14, 8, 12, 8);
+    // Decorations
+    cakeGfx.fillStyle(0xff6688); // pink frosting
+    cakeGfx.fillRect(6, 26, 28, 2); cakeGfx.fillRect(10, 16, 20, 2); cakeGfx.fillRect(14, 8, 12, 2);
+    // Heart on top
+    cakeGfx.fillStyle(0xff4466);
+    cakeGfx.fillCircle(18, 5, 3); cakeGfx.fillCircle(22, 5, 3);
+    cakeGfx.fillRect(16, 5, 8, 5);
+    cakeGfx.generateTexture('enemy-cake', 40, 40);
+    cakeGfx.destroy();
 }
 
 export function createItemSprites(scene) {
