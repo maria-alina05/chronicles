@@ -123,8 +123,10 @@ export class CharacterSelectScene extends Phaser.Scene {
         marabeigeCard.on('pointerdown', () => this.selectCharacter('marabeige'));
 
         // Keyboard shortcuts
-        this.input.keyboard.on('keydown-ONE', () => this.selectCharacter('zanuff'));
-        this.input.keyboard.on('keydown-TWO', () => this.selectCharacter('marabeige'));
+        if (this.input.keyboard) {
+            this.input.keyboard.on('keydown-ONE', () => this.selectCharacter('zanuff'));
+            this.input.keyboard.on('keydown-TWO', () => this.selectCharacter('marabeige'));
+        }
         
         // Number hints
         this.add.text(zanuffX + 170, zanuffY - 80, '[1]', {

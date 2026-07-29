@@ -141,7 +141,7 @@ export class EndingScene extends Phaser.Scene {
             }
         });
 
-        this.input.keyboard.on('keydown-ENTER', () => {
+        if (this.input.keyboard) this.input.keyboard.on('keydown-ENTER', () => {
             this.cameras.main.fadeOut(1000, 0, 0, 0);
             this.time.delayedCall(1000, () => {
                 this.scene.start('TitleScene');

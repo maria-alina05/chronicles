@@ -254,7 +254,7 @@ export class StoryScene extends Phaser.Scene {
             }
         });
 
-        this.input.keyboard.on('keydown-ENTER', () => {
+        if (this.input.keyboard) this.input.keyboard.on('keydown-ENTER', () => {
             this.cameras.main.fadeOut(500, 0, 0, 0);
             this.time.delayedCall(500, () => {
                 const sceneKey = `Level${this.levelIndex + 1}Scene`;
@@ -344,7 +344,7 @@ export class StoryScene extends Phaser.Scene {
             repeat: -1
         });
 
-        this.input.keyboard.on('keydown-ENTER', () => {
+        if (this.input.keyboard) this.input.keyboard.on('keydown-ENTER', () => {
             this.cameras.main.fadeOut(500, 0, 0, 0);
             this.time.delayedCall(500, () => {
                 if (isLastLevel) {
@@ -385,7 +385,7 @@ export class StoryScene extends Phaser.Scene {
                     yoyo: true,
                     repeat: -1
                 });
-                this.input.keyboard.once('keydown-ENTER', onComplete);
+                if (this.input.keyboard) this.input.keyboard.once('keydown-ENTER', onComplete);
                 this.input.once('pointerdown', onComplete);
                 return;
             }

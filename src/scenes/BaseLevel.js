@@ -596,7 +596,7 @@ export class BaseLevel extends Phaser.Scene {
                 buttons.forEach(b => { b.btn.destroy(); b.name.destroy(); b.desc.destroy(); });
                 this.levelUpActive = false;
                 this.physics.resume();
-                this.input.keyboard.off('keydown', keyHandler);
+                if (this.input.keyboard) this.input.keyboard.off('keydown', keyHandler);
             });
             
             buttons.push({ btn, name: nameText, desc: descText });
@@ -612,10 +612,10 @@ export class BaseLevel extends Phaser.Scene {
                 buttons.forEach(b => { b.btn.destroy(); b.name.destroy(); b.desc.destroy(); });
                 this.levelUpActive = false;
                 this.physics.resume();
-                this.input.keyboard.off('keydown', keyHandler);
+                if (this.input.keyboard) this.input.keyboard.off('keydown', keyHandler);
             }
         };
-        this.input.keyboard.on('keydown', keyHandler);
+        if (this.input.keyboard) this.input.keyboard.on('keydown', keyHandler);
     }
 
     getAvailableUpgrades(player) {
@@ -819,7 +819,7 @@ export class BaseLevel extends Phaser.Scene {
         const restart = () => {
             this.scene.start(this.scene.key, { character: this.selectedCharacter });
         };
-        this.input.keyboard.once('keydown-ENTER', restart);
+        if (this.input.keyboard) this.input.keyboard.once('keydown-ENTER', restart);
         this.input.once('pointerdown', restart);
     }
 

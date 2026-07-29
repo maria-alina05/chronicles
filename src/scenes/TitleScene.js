@@ -120,7 +120,7 @@ export class TitleScene extends Phaser.Scene {
                 this.scene.start('CharacterSelectScene');
             });
         };
-        this.input.keyboard.on('keydown-ENTER', startGame);
+        if (this.input.keyboard) this.input.keyboard.on('keydown-ENTER', startGame);
         this.input.on('pointerdown', startGame);
     }
 }

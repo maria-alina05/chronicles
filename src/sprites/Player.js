@@ -61,16 +61,25 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         this.setDepth(10);
         
         // Keyboard controls
-        this.keys = {
-            left: scene.input.keyboard.addKey('A'),
-            right: scene.input.keyboard.addKey('D'),
-            up: scene.input.keyboard.addKey('W'),
-            down: scene.input.keyboard.addKey('S'),
-            altLeft: scene.input.keyboard.addKey('LEFT'),
-            altRight: scene.input.keyboard.addKey('RIGHT'),
-            altUp: scene.input.keyboard.addKey('UP'),
-            altDown: scene.input.keyboard.addKey('DOWN')
-        };
+        if (scene.input.keyboard) {
+            this.keys = {
+                left: scene.input.keyboard.addKey('A'),
+                right: scene.input.keyboard.addKey('D'),
+                up: scene.input.keyboard.addKey('W'),
+                down: scene.input.keyboard.addKey('S'),
+                altLeft: scene.input.keyboard.addKey('LEFT'),
+                altRight: scene.input.keyboard.addKey('RIGHT'),
+                altUp: scene.input.keyboard.addKey('UP'),
+                altDown: scene.input.keyboard.addKey('DOWN')
+            };
+        } else {
+            this.keys = {
+                left: { isDown: false }, right: { isDown: false },
+                up: { isDown: false }, down: { isDown: false },
+                altLeft: { isDown: false }, altRight: { isDown: false },
+                altUp: { isDown: false }, altDown: { isDown: false }
+            };
+        }
         
         // Touch/joystick input (set by scene)
         this.touchVelocity = { x: 0, y: 0 };
