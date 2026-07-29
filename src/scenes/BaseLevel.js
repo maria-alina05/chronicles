@@ -883,45 +883,46 @@ export class BaseLevel extends Phaser.Scene {
     // --- TOUCH CONTROLS ---
     
     createTouchControls() {
-        this.touchTarget = null;
+        // Relative drag: touch anywhere, drag in a direction to move.
+        // Character moves in the direction you drag from your initial touch point.
+        // This keeps your finger away from the action so you can see monsters.
+        this.touchOrigin = null;
         this.touchPointer = null;
         
         this.input.on('pointerdown', (pointer) => {
             if (this.isPaused || this.levelUpActive || this.levelComplete_flag) return;
             this.touchPointer = pointer;
-            this.touchTarget = { x: pointer.x, y: pointer.y };
+            this.touchOrigin = { x: pointer.x, y: pointer.y };
         });
         
         this.input.on('pointermove', (pointer) => {
-            if (this.touchPointer && pointer === this.touchPointer) {
-                this.touchTarget = { x: pointer.x, y: pointer.y };
+            if (this.touchPointer && pointer === this.touchPointer && this.touchOrigin) {
+                const dx = pointer.x - this.touchOrigin.x;
+                const dy = pointer.y - this.touchOrigin.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                
+                // Dead zone to prevent jitter
+                if (dist < 10) {
+                    this.player.touchVelocity = { x: 0, y: 0 };
+                    return;
+                }
+                
+                // Normalize direction
+                this.player.touchVelocity = { x: dx / dist, y: dy / dist };
             }
         });
         
         this.input.on('pointerup', (pointer) => {
             if (pointer === this.touchPointer) {
                 this.touchPointer = null;
-                this.touchTarget = null;
+                this.touchOrigin = null;
                 this.player.touchVelocity = { x: 0, y: 0 };
             }
         });
     }
 
     updateTouchMovement() {
-        if (!this.touchTarget || !this.player) return;
-        
-        const dx = this.touchTarget.x - this.player.x;
-        const dy = this.touchTarget.y - this.player.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        
-        // Stop when close enough to avoid jitter
-        if (dist < 15) {
-            this.player.touchVelocity = { x: 0, y: 0 };
-            return;
-        }
-        
-        // Normalize direction
-        this.player.touchVelocity = { x: dx / dist, y: dy / dist };
+        // No-op: movement is handled directly via touchVelocity in pointermove
     }
 
     // --- HUD ---
