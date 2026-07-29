@@ -4,7 +4,7 @@
   "description": "A Vampire Survivors-style game about two lovers fighting through their memories together.",
   "start_url": "./index.html",
   "display": "fullscreen",
-  "orientation": "portrait",
+  "orientation": "any",
   "background_color": "#1a1a2e",
   "theme_color": "#e94560",
   "icons": [

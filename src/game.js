@@ -10,11 +10,16 @@ import { Level5Scene } from './scenes/Level5Scene.js';
 import { Level6Scene } from './scenes/Level6Scene.js';
 import { EndingScene } from './scenes/EndingScene.js';
 
+// Detect orientation and set game dimensions accordingly
+const isLandscape = window.innerWidth > window.innerHeight;
+const gameWidth = isLandscape ? 960 : 540;
+const gameHeight = isLandscape ? 540 : 960;
+
 const config = {
     type: Phaser.AUTO,
     parent: 'game-container',
-    width: 540,
-    height: 960,
+    width: gameWidth,
+    height: gameHeight,
     pixelArt: true,
     physics: {
         default: 'arcade',
@@ -43,3 +48,14 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
+
+// Reload on orientation change to re-initialize with correct dimensions
+window.addEventListener('orientationchange', () => {
+    setTimeout(() => window.location.reload(), 200);
+});
+window.addEventListener('resize', () => {
+    const nowLandscape = window.innerWidth > window.innerHeight;
+    if (nowLandscape !== isLandscape) {
+        setTimeout(() => window.location.reload(), 200);
+    }
+});
