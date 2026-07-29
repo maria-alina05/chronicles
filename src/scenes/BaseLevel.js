@@ -562,12 +562,25 @@ export class BaseLevel extends Phaser.Scene {
         const allUpgrades = this.getAvailableUpgrades(player);
         const choices = Phaser.Utils.Array.Shuffle(allUpgrades).slice(0, 3);
         
+        const isLandscape = width > height;
         const buttons = [];
         choices.forEach((choice, i) => {
-            const bx = width / 2;
-            const by = 220 + i * 140;
+            let bx, by, btnW, btnH;
+            if (isLandscape) {
+                // Side by side in landscape
+                btnW = 260;
+                btnH = 120;
+                bx = width / 4 + i * (width / 4) - 30;
+                by = height / 2 + 30;
+            } else {
+                // Stacked in portrait
+                btnW = 380;
+                btnH = 90;
+                bx = width / 2;
+                by = 220 + i * 140;
+            }
             
-            const btn = this.add.rectangle(bx, by, 380, 90, 0x222244, 0.95)
+            const btn = this.add.rectangle(bx, by, btnW, btnH, 0x222244, 0.95)
                 .setStrokeStyle(2, 0xffd700)
                 .setDepth(101)
                 .setInteractive({ useHandCursor: true });
@@ -583,7 +596,7 @@ export class BaseLevel extends Phaser.Scene {
                 fontSize: '7px',
                 color: '#aaaacc',
                 align: 'center',
-                wordWrap: { width: 300 }
+                wordWrap: { width: btnW - 40 }
             }).setOrigin(0.5).setDepth(102);
             
             btn.on('pointerover', () => btn.setFillStyle(0x333366));

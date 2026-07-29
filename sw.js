@@ -1,4 +1,4 @@
-const CACHE_NAME = 'zanuff-marabeige-v3';
+const CACHE_NAME = 'zanuff-marabeige-v4';
 const ASSETS = [
   './',
   './index.html',

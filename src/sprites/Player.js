@@ -17,17 +17,17 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             this.health = 7;
             this.maxHealth = 7;
             this.moveSpeed = 150;
-            this.attackDamage = 2;
-            this.attackSpeed = 900;
-            this.attackRange = 100;
+            this.attackDamage = 3;
+            this.attackSpeed = 750;
+            this.attackRange = 140;
         } else {
-            // Marabeige: faster, nimble, lighter damage
+            // Marabeige: faster, nimble, rapid attacks
             this.health = 5;
             this.maxHealth = 5;
             this.moveSpeed = 200;
-            this.attackDamage = 1;
-            this.attackSpeed = 600;
-            this.attackRange = 140;
+            this.attackDamage = 2;
+            this.attackSpeed = 450;
+            this.attackRange = 170;
         }
         
         this.lives = 3;
@@ -170,31 +170,32 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     fireTaricDazzle(level) {
-        // Taric's gem stun - radial gem projectiles
-        const numGems = 3 + level;
-        const range = this.attackRange * 0.7 + level * 10;
+        // Taric's gem stun - radial gem projectiles (AOE burst)
+        const numGems = 5 + level * 2;
+        const range = this.attackRange + level * 15;
         const baseAngle = this.scene.time.now / 500;
         
         for (let i = 0; i < numGems; i++) {
             const angle = baseAngle + (i / numGems) * Math.PI * 2;
-            const px = this.x + Math.cos(angle) * range * 0.4;
-            const py = this.y + Math.sin(angle) * range * 0.4;
+            const px = this.x + Math.cos(angle) * range * 0.3;
+            const py = this.y + Math.sin(angle) * range * 0.3;
             
             // Diamond/gem shaped projectile
-            const gem = this.scene.add.polygon(px, py, [0, -8, 6, 0, 0, 8, -6, 0], 0x44ddff, 0.9);
+            const gem = this.scene.add.polygon(px, py, [0, -10, 7, 0, 0, 10, -7, 0], 0x44ddff, 0.9);
             gem.setAngle(Phaser.Math.RadToDeg(angle));
             this.scene.physics.add.existing(gem);
             gem.body.setAllowGravity(false);
-            gem.body.setVelocity(Math.cos(angle) * 200, Math.sin(angle) * 200);
+            gem.body.setVelocity(Math.cos(angle) * 250, Math.sin(angle) * 250);
             
             this.scene.projectiles.add(gem);
-            gem.damage = this.attackDamage + Math.floor(level / 2);
+            gem.damage = this.attackDamage + level;
+            gem.isPiercing = true;
             
             this.scene.tweens.add({
                 targets: gem,
                 alpha: 0,
                 scale: 0.3,
-                duration: 380,
+                duration: 550,
                 onComplete: () => gem.destroy()
             });
         }
@@ -205,34 +206,35 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     fireSweetBolts(target, level) {
-        // Homing candy/sweet projectiles
-        const bolts = Math.min(level + 1, 4);
+        // Homing candy/sweet projectiles - rapid burst
+        const bolts = Math.min(level + 2, 6);
         const colors = [0xff66aa, 0xff88cc, 0xffaadd, 0xffccee];
         
         for (let i = 0; i < bolts; i++) {
-            this.scene.time.delayedCall(i * 70, () => {
+            this.scene.time.delayedCall(i * 50, () => {
                 if (!this.active || !target || !target.active) return;
                 
-                const bolt = this.scene.add.circle(this.x, this.y, 4 + level, colors[i % colors.length], 0.9);
+                const bolt = this.scene.add.circle(this.x, this.y, 5 + level, colors[i % colors.length], 0.9);
                 this.scene.physics.add.existing(bolt);
                 bolt.body.setAllowGravity(false);
-                bolt.body.setCircle(4 + level);
+                bolt.body.setCircle(5 + level);
                 
                 const angle = Phaser.Math.Angle.Between(this.x, this.y, target.x, target.y);
-                const spread = (i - Math.floor(bolts / 2)) * 0.12;
-                const speed = 330 + level * 20;
+                const spread = (i - Math.floor(bolts / 2)) * 0.15;
+                const speed = 380 + level * 25;
                 bolt.body.setVelocity(
                     Math.cos(angle + spread) * speed,
                     Math.sin(angle + spread) * speed
                 );
                 
                 this.scene.projectiles.add(bolt);
-                bolt.damage = this.attackDamage + Math.floor(level / 3);
+                bolt.damage = this.attackDamage + Math.floor(level / 2);
+                bolt.isPiercing = level >= 3;
                 
                 this.scene.tweens.add({
                     targets: bolt,
                     alpha: 0,
-                    duration: 650,
+                    duration: 800,
                     onComplete: () => bolt.destroy()
                 });
             });
@@ -240,133 +242,136 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     fireStarlight(level) {
-        // Taric's Starlight - radiance aura burst
-        const range = 55 + level * 20;
-        const aura = this.scene.add.circle(this.x, this.y, range, 0x88ccff, 0.2);
+        // Taric's Starlight - large radiance aura burst
+        const range = 75 + level * 25;
+        const aura = this.scene.add.circle(this.x, this.y, range, 0x88ccff, 0.3);
         this.scene.physics.add.existing(aura);
         aura.body.setAllowGravity(false);
         aura.body.setCircle(range);
         
         this.scene.projectiles.add(aura);
-        aura.damage = level + 1;
+        aura.damage = level + 2;
+        aura.isPiercing = true;
         
-        // Healing effect (small self-heal at high level)
-        if (level >= 3 && this.health < this.maxHealth) {
+        // Healing effect
+        if (level >= 2 && this.health < this.maxHealth) {
             this.health = Math.min(this.maxHealth, this.health + 1);
         }
         
         this.scene.tweens.add({
             targets: aura,
             alpha: 0,
-            scale: 1.5,
-            duration: 350,
+            scale: 1.8,
+            duration: 450,
             onComplete: () => aura.destroy()
         });
     }
 
     fireLidlBags(level) {
-        // Lidl shopping bag burst around player
-        const count = 3 + level;
+        // Lidl shopping bag burst around player - wide AOE
+        const count = 5 + level * 2;
         for (let i = 0; i < count; i++) {
-            const angle = (i / count) * Math.PI * 2 + Math.random() * 0.4;
-            const dist = 35 + Math.random() * 50;
+            const angle = (i / count) * Math.PI * 2 + Math.random() * 0.3;
+            const dist = 30 + Math.random() * 60;
             const tx = this.x + Math.cos(angle) * dist;
             const ty = this.y + Math.sin(angle) * dist;
             
-            // Blue/yellow Lidl colored bags
             const color = i % 2 === 0 ? 0x0050aa : 0xffdd00;
-            const bag = this.scene.add.rectangle(tx, ty, 12, 15, color, 0.85);
+            const bag = this.scene.add.rectangle(tx, ty, 14, 17, color, 0.85);
             this.scene.physics.add.existing(bag);
             bag.body.setAllowGravity(false);
-            bag.body.setVelocity(Math.cos(angle) * 120, Math.sin(angle) * 120);
+            bag.body.setVelocity(Math.cos(angle) * 160, Math.sin(angle) * 160);
             
             this.scene.projectiles.add(bag);
-            bag.damage = this.attackDamage;
+            bag.damage = this.attackDamage + Math.floor(level / 2);
+            bag.isPiercing = true;
             
             this.scene.tweens.add({
                 targets: bag,
                 alpha: 0,
-                scale: 1.4,
+                scale: 1.6,
                 rotation: Math.PI,
-                duration: 450,
+                duration: 600,
                 onComplete: () => bag.destroy()
             });
         }
     }
 
     fireBastionShield(level) {
-        // Taric's Bastion - protective shield that also damages nearby enemies
-        const shieldRange = 45 + level * 12;
-        const shield = this.scene.add.circle(this.x, this.y, shieldRange, 0xffd700, 0.15);
-        shield.setStrokeStyle(2, 0xffd700, 0.5);
+        // Taric's Bastion - large protective shield + damage
+        const shieldRange = 60 + level * 18;
+        const shield = this.scene.add.circle(this.x, this.y, shieldRange, 0xffd700, 0.2);
+        shield.setStrokeStyle(3, 0xffd700, 0.6);
         this.scene.physics.add.existing(shield);
         shield.body.setAllowGravity(false);
         shield.body.setCircle(shieldRange);
         
         this.scene.projectiles.add(shield);
-        shield.damage = level;
+        shield.damage = level + 1;
+        shield.isPiercing = true;
         
-        // Brief invincibility at high levels
-        if (level >= 3) {
+        // Brief invincibility at level 2+
+        if (level >= 2) {
             this.invincible = true;
-            this.scene.time.delayedCall(300, () => { this.invincible = false; });
+            this.scene.time.delayedCall(400 + level * 100, () => { this.invincible = false; });
         }
         
         this.scene.tweens.add({
             targets: shield,
             alpha: 0,
-            scale: 1.3,
-            duration: 400,
+            scale: 1.5,
+            duration: 500,
             onComplete: () => shield.destroy()
         });
     }
 
     fireCookingFire(level) {
-        // Cooking flame ring around Marabeige
-        const numFlames = 5 + level * 2;
+        // Cooking flame ring around Marabeige - big AOE
+        const numFlames = 8 + level * 3;
         for (let i = 0; i < numFlames; i++) {
             const angle = (i / numFlames) * Math.PI * 2;
-            const dist = 40 + level * 8;
+            const dist = 45 + level * 12;
             const fx = this.x + Math.cos(angle) * dist;
             const fy = this.y + Math.sin(angle) * dist;
             
-            const flame = this.scene.add.circle(fx, fy, 5 + level, 0xff6600, 0.7);
+            const flame = this.scene.add.circle(fx, fy, 7 + level, 0xff6600, 0.8);
             this.scene.physics.add.existing(flame);
             flame.body.setAllowGravity(false);
-            flame.body.setVelocity(Math.cos(angle) * 80, Math.sin(angle) * 80);
+            flame.body.setVelocity(Math.cos(angle) * 110, Math.sin(angle) * 110);
             
             this.scene.projectiles.add(flame);
-            flame.damage = this.attackDamage;
+            flame.damage = this.attackDamage + Math.floor(level / 2);
+            flame.isPiercing = true;
             
             this.scene.tweens.add({
                 targets: flame,
                 alpha: 0,
                 scale: 0.3,
-                y: fy - 15,
-                duration: 500,
+                y: fy - 20,
+                duration: 650,
                 onComplete: () => flame.destroy()
             });
         }
     }
 
     fireCheeseWheel(target, level) {
-        // Zanuff's cheese wheel - bouncing projectile
+        // Zanuff's cheese wheel - bouncing piercing projectile
         if (!target || !target.active) return;
-        const cheese = this.scene.add.circle(this.x, this.y, 7 + level, 0xffd700, 0.9);
+        const cheese = this.scene.add.circle(this.x, this.y, 9 + level * 2, 0xffd700, 0.9);
         this.scene.physics.add.existing(cheese);
         cheese.body.setAllowGravity(false);
         cheese.body.setBounce(1, 1);
         cheese.body.setCollideWorldBounds(true);
         
         const angle = Phaser.Math.Angle.Between(this.x, this.y, target.x, target.y);
-        cheese.body.setVelocity(Math.cos(angle) * 350, Math.sin(angle) * 350);
+        cheese.body.setVelocity(Math.cos(angle) * 400, Math.sin(angle) * 400);
         
         this.scene.projectiles.add(cheese);
-        cheese.damage = this.attackDamage + level;
+        cheese.damage = this.attackDamage + level + 1;
         cheese.isPiercing = true;
         
-        // Destroy after time
-        this.scene.time.delayedCall(1200 + level * 200, () => {
+        // Longer bouncing time
+        this.scene.time.delayedCall(1800 + level * 300, () => {
             if (cheese.active) {
                 this.scene.tweens.add({
                     targets: cheese, alpha: 0, duration: 200,
@@ -377,28 +382,29 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     fireIceCreamCone(level) {
-        // Ice cream cone burst - slows enemies on hit
-        const count = 2 + level;
+        // Ice cream cone burst - slows and pierces
+        const count = 4 + level * 2;
         for (let i = 0; i < count; i++) {
             const angle = (i / count) * Math.PI * 2 + this.scene.time.now / 800;
             const cone = this.scene.add.triangle(
                 this.x, this.y,
-                0, -8, 5, 6, -5, 6,
+                0, -10, 6, 7, -6, 7,
                 0xffaacc, 0.9
             );
             cone.setAngle(Phaser.Math.RadToDeg(angle));
             this.scene.physics.add.existing(cone);
             cone.body.setAllowGravity(false);
-            cone.body.setVelocity(Math.cos(angle) * 180, Math.sin(angle) * 180);
+            cone.body.setVelocity(Math.cos(angle) * 220, Math.sin(angle) * 220);
             
             this.scene.projectiles.add(cone);
-            cone.damage = this.attackDamage;
+            cone.damage = this.attackDamage + Math.floor(level / 2);
             cone.isSlowing = true;
+            cone.isPiercing = level >= 2;
             
             this.scene.tweens.add({
                 targets: cone,
                 alpha: 0,
-                duration: 600,
+                duration: 750,
                 onComplete: () => cone.destroy()
             });
         }

@@ -28,41 +28,53 @@ export class CharacterSelectScene extends Phaser.Scene {
         }
 
         // Title
-        this.add.text(width / 2, 50, 'Choose Your Hero', {
+        this.add.text(width / 2, 30, 'Choose Your Hero', {
             fontFamily: '"Press Start 2P"',
-            fontSize: '20px',
+            fontSize: '18px',
             color: '#ffd700'
         }).setOrigin(0.5);
 
-        this.add.text(width / 2, 80, 'Tap or click to select', {
+        this.add.text(width / 2, 55, 'Tap or click to select', {
             fontFamily: '"Press Start 2P"',
             fontSize: '8px',
             color: '#888899'
         }).setOrigin(0.5);
 
-        // --- ZANUFF CARD ---
-        const zanuffX = width / 2;
-        const zanuffY = 240;
+        // Layout: side-by-side in landscape, stacked in portrait
+        const isLandscape = width > height;
+        const cardW = isLandscape ? 360 : 400;
+        const cardH = isLandscape ? height - 120 : 200;
+        const zanuffX = isLandscape ? width * 0.27 : width / 2;
+        const zanuffY = isLandscape ? height / 2 + 25 : 210;
+        const marabeigeX = isLandscape ? width * 0.73 : width / 2;
+        const marabeigeY = isLandscape ? height / 2 + 25 : 420;
 
-        const zanuffCard = this.add.rectangle(zanuffX, zanuffY, 400, 200, 0x111133, 0.9)
+        // --- ZANUFF CARD ---
+
+        const zanuffCard = this.add.rectangle(zanuffX, zanuffY, cardW, cardH, 0x111133, 0.9)
             .setStrokeStyle(3, 0x6688ff)
             .setInteractive({ useHandCursor: true });
 
-        this.add.image(zanuffX - 130, zanuffY, 'zanuff').setScale(2);
+        const zImgOffset = isLandscape ? 0 : -130;
+        const zImgY = isLandscape ? zanuffY - 80 : zanuffY;
+        this.add.image(zanuffX + zImgOffset, zImgY, 'zanuff').setScale(2);
 
-        this.add.text(zanuffX + 40, zanuffY - 50, 'ZANUFF', {
+        const zTextX = isLandscape ? zanuffX : zanuffX + 40;
+        const zTextBaseY = isLandscape ? zanuffY + 10 : zanuffY - 50;
+
+        this.add.text(zTextX, zTextBaseY, 'ZANUFF', {
             fontFamily: '"Press Start 2P"',
             fontSize: '14px',
             color: '#6688ff'
         }).setOrigin(0.5);
 
-        this.add.text(zanuffX + 40, zanuffY - 28, 'The Gamer', {
+        this.add.text(zTextX, zTextBaseY + 22, 'The Gamer', {
             fontFamily: '"Press Start 2P"',
             fontSize: '8px',
             color: '#aabbff'
         }).setOrigin(0.5);
 
-        this.add.text(zanuffX + 40, zanuffY + 10, '+ High damage\n+ Tanky (7 HP)\n- Slower movement\n- HATES melons', {
+        this.add.text(zTextX, zTextBaseY + 62, '+ High damage\n+ Tanky (7 HP)\n- Slower movement\n- HATES melons', {
             fontFamily: '"Press Start 2P"',
             fontSize: '7px',
             color: '#8899aa',
@@ -70,35 +82,38 @@ export class CharacterSelectScene extends Phaser.Scene {
             lineSpacing: 6
         }).setOrigin(0.5);
 
-        this.add.text(zanuffX + 40, zanuffY + 60, 'Weapon: Taric Dazzle', {
+        this.add.text(zTextX, zTextBaseY + 115, 'Weapon: Taric Dazzle', {
             fontFamily: '"Press Start 2P"',
             fontSize: '7px',
             color: '#ffaa44'
         }).setOrigin(0.5);
 
         // --- MARABEIGE CARD ---
-        const marabeigeX = width / 2;
-        const marabeigeY = 500;
 
-        const marabeigeCard = this.add.rectangle(marabeigeX, marabeigeY, 400, 200, 0x331122, 0.9)
+        const marabeigeCard = this.add.rectangle(marabeigeX, marabeigeY, cardW, cardH, 0x331122, 0.9)
             .setStrokeStyle(3, 0xff6688)
             .setInteractive({ useHandCursor: true });
 
-        this.add.image(marabeigeX - 130, marabeigeY, 'marabeige').setScale(2);
+        const mImgOffset = isLandscape ? 0 : -130;
+        const mImgY = isLandscape ? marabeigeY - 80 : marabeigeY;
+        this.add.image(marabeigeX + mImgOffset, mImgY, 'marabeige').setScale(2);
 
-        this.add.text(marabeigeX + 40, marabeigeY - 50, 'MARABEIGE', {
+        const mTextX = isLandscape ? marabeigeX : marabeigeX + 40;
+        const mTextBaseY = isLandscape ? marabeigeY + 10 : marabeigeY - 50;
+
+        this.add.text(mTextX, mTextBaseY, 'MARABEIGE', {
             fontFamily: '"Press Start 2P"',
             fontSize: '14px',
             color: '#ff6688'
         }).setOrigin(0.5);
 
-        this.add.text(marabeigeX + 40, marabeigeY - 28, 'The Home Cook', {
+        this.add.text(mTextX, mTextBaseY + 22, 'The Home Cook', {
             fontFamily: '"Press Start 2P"',
             fontSize: '8px',
             color: '#ffaacc'
         }).setOrigin(0.5);
 
-        this.add.text(marabeigeX + 40, marabeigeY + 10, '+ Fast movement\n+ Rapid attacks\n- Less HP (5)\n- Allergic to flowers\n- Afraid of heights', {
+        this.add.text(mTextX, mTextBaseY + 62, '+ Fast movement\n+ Rapid attacks\n- Less HP (5)\n- Allergic to flowers\n- Afraid of heights', {
             fontFamily: '"Press Start 2P"',
             fontSize: '7px',
             color: '#8899aa',
@@ -106,7 +121,7 @@ export class CharacterSelectScene extends Phaser.Scene {
             lineSpacing: 6
         }).setOrigin(0.5);
 
-        this.add.text(marabeigeX + 40, marabeigeY + 70, 'Weapon: Sweet Bolts', {
+        this.add.text(mTextX, mTextBaseY + 125, 'Weapon: Sweet Bolts', {
             fontFamily: '"Press Start 2P"',
             fontSize: '7px',
             color: '#ffaa44'
@@ -129,13 +144,13 @@ export class CharacterSelectScene extends Phaser.Scene {
         }
         
         // Number hints
-        this.add.text(zanuffX + 170, zanuffY - 80, '[1]', {
+        this.add.text(zanuffX + cardW / 2 - 30, zanuffY - cardH / 2 + 10, '[1]', {
             fontFamily: '"Press Start 2P"',
             fontSize: '8px',
             color: '#555577'
         }).setOrigin(0.5);
         
-        this.add.text(marabeigeX + 170, marabeigeY - 80, '[2]', {
+        this.add.text(marabeigeX + cardW / 2 - 30, marabeigeY - cardH / 2 + 10, '[2]', {
             fontFamily: '"Press Start 2P"',
             fontSize: '8px',
             color: '#555577'
