@@ -552,9 +552,11 @@ export class BaseLevel extends Phaser.Scene {
         const overlay = this.add.rectangle(width / 2, height / 2, width, height, 0x000000, 0.7)
             .setDepth(100).setScrollFactor(0);
         
-        const titleText = this.add.text(width / 2, 120, `LEVEL ${player.level}!`, {
+        const isLandscape = width > height;
+        
+        const titleText = this.add.text(width / 2, height * 0.18, `LEVEL ${player.level}!`, {
             fontFamily: '"Press Start 2P"',
-            fontSize: '18px',
+            fontSize: isLandscape ? '16px' : '18px',
             color: '#ffd700'
         }).setOrigin(0.5).setDepth(101);
         
@@ -562,7 +564,6 @@ export class BaseLevel extends Phaser.Scene {
         const allUpgrades = this.getAvailableUpgrades(player);
         const choices = Phaser.Utils.Array.Shuffle(allUpgrades).slice(0, 3);
         
-        const isLandscape = width > height;
         const buttons = [];
         choices.forEach((choice, i) => {
             let bx, by, btnW, btnH;
@@ -571,13 +572,13 @@ export class BaseLevel extends Phaser.Scene {
                 btnW = 260;
                 btnH = 120;
                 bx = width / 4 + i * (width / 4) - 30;
-                by = height / 2 + 30;
+                by = height * 0.58;
             } else {
                 // Stacked in portrait
-                btnW = 380;
+                btnW = Math.min(380, width - 40);
                 btnH = 90;
                 bx = width / 2;
-                by = 220 + i * 140;
+                by = height * 0.28 + i * (height * 0.22);
             }
             
             const btn = this.add.rectangle(bx, by, btnW, btnH, 0x222244, 0.95)
@@ -1026,28 +1027,30 @@ export class BaseLevel extends Phaser.Scene {
     // --- DIALOG ---
     
     showDialogBubble(dialog) {
-        const { width } = this.cameras.main;
+        const { width, height } = this.cameras.main;
         const name = dialog.speaker === 'zanuff' ? 'Zanuff' : 'Marabeige';
         const color = dialog.speaker === 'zanuff' ? '#6688ff' : '#ff6688';
+        const bubbleY = height * 0.12;
+        const wrapW = Math.min(width - 60, 350);
         
-        const bubble = this.add.rectangle(width / 2, 70, 10, 10, 0x111122, 0.9)
+        const bubble = this.add.rectangle(width / 2, bubbleY, 10, 10, 0x111122, 0.9)
             .setStrokeStyle(1, dialog.speaker === 'zanuff' ? 0x6688ff : 0xff6688)
             .setDepth(90);
         
-        const nameText = this.add.text(width / 2, 60, name, {
+        const nameText = this.add.text(width / 2, bubbleY - 10, name, {
             fontFamily: '"Press Start 2P"', fontSize: '7px', color
         }).setOrigin(0.5).setDepth(91);
         
-        const lineText = this.add.text(width / 2, 76, dialog.text, {
+        const lineText = this.add.text(width / 2, bubbleY + 6, dialog.text, {
             fontFamily: '"Press Start 2P"', fontSize: '7px', color: '#ffffff',
-            align: 'center', wordWrap: { width: 350 }
+            align: 'center', wordWrap: { width: wrapW }
         }).setOrigin(0.5).setDepth(91);
         
         const padding = 14;
         const w = Math.max(lineText.width, nameText.width) + padding * 2;
         const h = lineText.height + nameText.height + padding + 6;
         bubble.setSize(w, h);
-        bubble.setPosition(width / 2, 68);
+        bubble.setPosition(width / 2, bubbleY);
         
         // Fade out
         this.time.delayedCall(3500, () => {

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'zanuff-marabeige-v4';
+const CACHE_NAME = 'zanuff-marabeige-v5';
 const ASSETS = [
   './',
   './index.html',
@@ -21,7 +21,9 @@ const ASSETS = [
   './src/scenes/Level6Scene.js',
   './src/scenes/EndingScene.js',
   './icons/icon-192.svg',
-  './icons/icon-512.svg'
+  './icons/icon-512.svg',
+  './icons/icon-192.png',
+  './icons/icon-512.png'
 ];
 
 self.addEventListener('install', (event) => {
