@@ -883,16 +883,22 @@ export class BaseLevel extends Phaser.Scene {
     // --- TOUCH CONTROLS ---
     
     createTouchControls() {
-        // Relative drag: touch anywhere, drag in a direction to move.
-        // Character moves in the direction you drag from your initial touch point.
-        // This keeps your finger away from the action so you can see monsters.
+        // Dynamic joystick: appears where you touch, like Vampire Survivors
         this.touchOrigin = null;
         this.touchPointer = null;
+        
+        // Joystick visuals (hidden until touch)
+        this.joystickBase = this.add.circle(0, 0, 50, 0xffffff, 0.15)
+            .setDepth(200).setScrollFactor(0).setVisible(false);
+        this.joystickThumb = this.add.circle(0, 0, 22, 0xffffff, 0.4)
+            .setDepth(201).setScrollFactor(0).setVisible(false);
         
         this.input.on('pointerdown', (pointer) => {
             if (this.isPaused || this.levelUpActive || this.levelComplete_flag) return;
             this.touchPointer = pointer;
             this.touchOrigin = { x: pointer.x, y: pointer.y };
+            this.joystickBase.setPosition(pointer.x, pointer.y).setVisible(true);
+            this.joystickThumb.setPosition(pointer.x, pointer.y).setVisible(true);
         });
         
         this.input.on('pointermove', (pointer) => {
@@ -900,9 +906,20 @@ export class BaseLevel extends Phaser.Scene {
                 const dx = pointer.x - this.touchOrigin.x;
                 const dy = pointer.y - this.touchOrigin.y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
+                const maxDist = 40;
                 
-                // Dead zone to prevent jitter
-                if (dist < 10) {
+                // Move thumb indicator (clamped to max distance)
+                if (dist > maxDist) {
+                    this.joystickThumb.setPosition(
+                        this.touchOrigin.x + (dx / dist) * maxDist,
+                        this.touchOrigin.y + (dy / dist) * maxDist
+                    );
+                } else {
+                    this.joystickThumb.setPosition(pointer.x, pointer.y);
+                }
+                
+                // Dead zone
+                if (dist < 8) {
                     this.player.touchVelocity = { x: 0, y: 0 };
                     return;
                 }
@@ -916,6 +933,8 @@ export class BaseLevel extends Phaser.Scene {
             if (pointer === this.touchPointer) {
                 this.touchPointer = null;
                 this.touchOrigin = null;
+                this.joystickBase.setVisible(false);
+                this.joystickThumb.setVisible(false);
                 this.player.touchVelocity = { x: 0, y: 0 };
             }
         });

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'zanuff-marabeige-v7';
+const CACHE_NAME = 'zanuff-marabeige-v8';
 const ASSETS = [
   './',
   './index.html',
@@ -11,6 +11,7 @@ const ASSETS = [
   './src/scenes/BootScene.js',
   './src/scenes/TitleScene.js',
   './src/scenes/CharacterSelectScene.js',
+  './src/scenes/LevelSelectScene.js',
   './src/scenes/StoryScene.js',
   './src/scenes/BaseLevel.js',
   './src/scenes/Level1Scene.js',

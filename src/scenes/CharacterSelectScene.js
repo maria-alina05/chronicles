@@ -160,7 +160,7 @@ export class CharacterSelectScene extends Phaser.Scene {
     selectCharacter(character) {
         this.cameras.main.fadeOut(400, 0, 0, 0);
         this.time.delayedCall(400, () => {
-            this.scene.start('StoryScene', { levelIndex: 0, isIntro: true, character });
+            this.scene.start('LevelSelectScene', { character });
         });
     }
 }

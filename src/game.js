@@ -1,6 +1,7 @@
 import { BootScene } from './scenes/BootScene.js';
 import { TitleScene } from './scenes/TitleScene.js';
 import { CharacterSelectScene } from './scenes/CharacterSelectScene.js';
+import { LevelSelectScene } from './scenes/LevelSelectScene.js';
 import { StoryScene } from './scenes/StoryScene.js';
 import { Level1Scene } from './scenes/Level1Scene.js';
 import { Level2Scene } from './scenes/Level2Scene.js';
@@ -36,6 +37,7 @@ const config = {
         BootScene,
         TitleScene,
         CharacterSelectScene,
+        LevelSelectScene,
         StoryScene,
         Level1Scene,
         Level2Scene,
