@@ -119,7 +119,7 @@ export class EndingScene extends Phaser.Scene {
         });
 
         // Back to title after all text shown
-        const replayText = this.add.text(width / 2, height - 15, 'Press ENTER to replay', {
+        const replayText = this.add.text(width / 2, height - 15, 'Tap or press ENTER to replay', {
             fontFamily: '"Press Start 2P"',
             fontSize: '7px',
             color: '#666688'
@@ -142,6 +142,12 @@ export class EndingScene extends Phaser.Scene {
         });
 
         this.input.keyboard.on('keydown-ENTER', () => {
+            this.cameras.main.fadeOut(1000, 0, 0, 0);
+            this.time.delayedCall(1000, () => {
+                this.scene.start('TitleScene');
+            });
+        });
+        this.input.on('pointerdown', () => {
             this.cameras.main.fadeOut(1000, 0, 0, 0);
             this.time.delayedCall(1000, () => {
                 this.scene.start('TitleScene');

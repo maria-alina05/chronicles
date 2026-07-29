@@ -2,18 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>The Chronicles of Zanuff & Marabeige</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
+        html, body {
             background: #1a1a2e;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            min-height: 100dvh;
             overflow: hidden;
             font-family: 'Press Start 2P', monospace;
+            touch-action: none;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
         }
         #game-container {
             position: relative;
@@ -21,7 +29,12 @@
             max-width: 960px;
             aspect-ratio: 16/9;
         }
-        canvas { display: block; width: 100% !important; height: auto !important; }
+        canvas {
+            display: block;
+            width: 100% !important;
+            height: auto !important;
+            touch-action: none;
+        }
         #controls-info {
             position: fixed;
             bottom: 10px;
@@ -32,15 +45,27 @@
             text-align: center;
             font-family: monospace;
         }
+        @media (max-width: 768px), (max-height: 500px) {
+            #controls-info { display: none; }
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icons/icon-192.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="icons/icon-192.svg">
+    <meta name="theme-color" content="#1a1a2e">
 </head>
 <body>
     <div id="game-container"></div>
     <div id="controls-info">
-        P1 (Zanuff): WASD + E attack | P2 (Marabeige): Arrows + Space attack | Enter: confirm
+        WASD / Arrows / Touch to move | Attacks are automatic
     </div>
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
     <script type="module" src="src/game.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js').catch(() => {});
+        }
+    </script>
 </body>
 </html>

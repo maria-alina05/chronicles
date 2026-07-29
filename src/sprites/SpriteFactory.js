@@ -93,15 +93,18 @@ function drawZanuff(gfx) {
     gfx.fillStyle(COLORS.andrei.skin);
     gfx.fillRect(12, 4, 24, 26);
 
-    // Hair (dark brown, short, slightly textured on top)
+    // Hair (dark brown, short fade on sides, less volume on top)
     gfx.fillStyle(COLORS.andrei.hair);
-    gfx.fillRect(11, 0, 26, 10);
-    gfx.fillRect(11, 0, 3, 14); // left sideburn
-    gfx.fillRect(34, 0, 3, 14); // right sideburn
-    // Texture on top
-    gfx.fillRect(14, 0, 2, 1);
-    gfx.fillRect(20, 0, 3, 1);
-    gfx.fillRect(28, 0, 2, 1);
+    // Top (shorter, not too tall)
+    gfx.fillRect(15, 1, 18, 2);  // upper
+    gfx.fillRect(13, 3, 22, 5);  // main body
+    // Short fade on sides (still hair, just shorter/lighter)
+    gfx.fillStyle(0x3a2515); // medium fade
+    gfx.fillRect(11, 4, 2, 5);
+    gfx.fillRect(35, 4, 2, 5);
+    gfx.fillStyle(0x4a3525); // lighter at bottom
+    gfx.fillRect(11, 8, 2, 4);
+    gfx.fillRect(35, 8, 2, 4);
 
     // Rectangular prescription glasses - thin dark frames
     gfx.fillStyle(COLORS.andrei.glasses);
@@ -150,9 +153,15 @@ function drawZanuff(gfx) {
     // Under lip area
     gfx.fillRect(18, 24, 10, 1);
 
-    // Mouth/smile visible through beard
+    // Mouth/smile visible through beard (big grin with teeth)
     gfx.fillStyle(0xeebb99);
+    gfx.fillRect(18, 23, 10, 1);
+    gfx.fillStyle(0xffffff); // teeth
     gfx.fillRect(19, 23, 8, 1);
+    // Smile corners
+    gfx.fillStyle(0xeebb99);
+    gfx.fillRect(17, 22, 1, 1);
+    gfx.fillRect(28, 22, 1, 1);
 
     // Hands
     gfx.fillStyle(COLORS.andrei.skin);
@@ -202,11 +211,17 @@ function drawZanuffJump(gfx) {
     gfx.fillStyle(COLORS.andrei.skin);
     gfx.fillRect(12, 2, 24, 26);
 
-    // Hair
+    // Hair (short fade on sides, less volume on top)
     gfx.fillStyle(COLORS.andrei.hair);
-    gfx.fillRect(11, 0, 26, 9);
-    gfx.fillRect(11, 0, 3, 12);
-    gfx.fillRect(34, 0, 3, 12);
+    gfx.fillRect(15, 0, 18, 2);
+    gfx.fillRect(13, 2, 22, 5);
+    // Short fade on sides
+    gfx.fillStyle(0x3a2515);
+    gfx.fillRect(11, 3, 2, 4);
+    gfx.fillRect(35, 3, 2, 4);
+    gfx.fillStyle(0x4a3525);
+    gfx.fillRect(11, 6, 2, 3);
+    gfx.fillRect(35, 6, 2, 3);
 
     // Glasses
     gfx.fillStyle(COLORS.andrei.glasses);
@@ -237,13 +252,22 @@ function drawZanuffJump(gfx) {
     gfx.fillRect(27, 13, 1, 3);
     gfx.fillRect(31, 13, 1, 3);
 
-    // Beard
+    // Full trimmed beard
     gfx.fillStyle(COLORS.andrei.beard);
     gfx.fillRect(16, 20, 14, 2);
     gfx.fillRect(12, 18, 3, 8);
     gfx.fillRect(33, 18, 3, 8);
     gfx.fillRect(14, 23, 20, 4);
     gfx.fillRect(15, 27, 18, 1);
+
+    // Smile (big grin with teeth)
+    gfx.fillStyle(0xeebb99);
+    gfx.fillRect(18, 21, 10, 1);
+    gfx.fillStyle(0xffffff);
+    gfx.fillRect(19, 21, 8, 1);
+    gfx.fillStyle(0xeebb99);
+    gfx.fillRect(17, 20, 1, 1);
+    gfx.fillRect(28, 20, 1, 1);
 
     // Hands up
     gfx.fillStyle(COLORS.andrei.skin);
@@ -561,17 +585,99 @@ export function createEnemySprites(scene) {
     touristGfx.generateTexture('enemy-tourist', 40, 40);
     touristGfx.destroy();
 
-    // Generic enemy
+    // Generic enemy - LoL caster minion style (purple robed, glowing eyes)
     const genericGfx = scene.make.graphics({ x: 0, y: 0, add: false });
-    genericGfx.fillStyle(0x884488);
-    genericGfx.fillRect(4, 4, 32, 32);
-    genericGfx.fillStyle(0xff0000);
-    genericGfx.fillRect(12, 12, 5, 5);
-    genericGfx.fillRect(22, 12, 5, 5);
-    genericGfx.fillStyle(0x333333);
-    genericGfx.fillRect(12, 26, 16, 3);
+    // Robe/body (purple)
+    genericGfx.fillStyle(0x5533aa);
+    genericGfx.fillTriangle(10, 38, 20, 16, 30, 38); // robe body
+    genericGfx.fillStyle(0x442288);
+    genericGfx.fillTriangle(12, 38, 20, 20, 28, 38); // inner robe shade
+    // Hood
+    genericGfx.fillStyle(0x5533aa);
+    genericGfx.fillCircle(20, 12, 9);
+    genericGfx.fillStyle(0x331166);
+    genericGfx.fillCircle(20, 14, 7); // hood shadow/opening
+    // Glowing eyes
+    genericGfx.fillStyle(0xff4444);
+    genericGfx.fillRect(16, 12, 3, 3);
+    genericGfx.fillRect(22, 12, 3, 3);
+    // Eye glow
+    genericGfx.fillStyle(0xff8888);
+    genericGfx.fillRect(17, 13, 1, 1);
+    genericGfx.fillRect(23, 13, 1, 1);
+    // Staff
+    genericGfx.fillStyle(0x886622);
+    genericGfx.fillRect(30, 6, 2, 32);
+    genericGfx.fillStyle(0xaa44ff);
+    genericGfx.fillCircle(31, 6, 4); // orb on staff
     genericGfx.generateTexture('enemy-generic', 40, 40);
     genericGfx.destroy();
+
+    // Melon minion (for Zanuff) - LoL melee minion with watermelon head
+    const melonGfx = scene.make.graphics({ x: 0, y: 0, add: false });
+    // Robe/body (dark green)
+    melonGfx.fillStyle(0x1a5c1a);
+    melonGfx.fillTriangle(10, 38, 20, 16, 30, 38);
+    melonGfx.fillStyle(0x0f3d0f);
+    melonGfx.fillTriangle(12, 38, 20, 20, 28, 38);
+    // Melon head (round watermelon)
+    melonGfx.fillStyle(0x2d8b2d);
+    melonGfx.fillCircle(20, 11, 10);
+    // Stripes on melon head
+    melonGfx.fillStyle(0x5cb85c);
+    melonGfx.fillRect(15, 3, 2, 16);
+    melonGfx.fillRect(20, 2, 2, 18);
+    melonGfx.fillRect(25, 3, 2, 16);
+    // Angry glowing eyes
+    melonGfx.fillStyle(0xff0000);
+    melonGfx.fillRect(15, 10, 4, 3);
+    melonGfx.fillRect(22, 10, 4, 3);
+    // Angry eyebrows (slanted)
+    melonGfx.fillStyle(0x111111);
+    melonGfx.fillRect(14, 8, 5, 2);
+    melonGfx.fillRect(22, 8, 5, 2);
+    // Little sword (melee minion)
+    melonGfx.fillStyle(0xaaaaaa);
+    melonGfx.fillRect(31, 14, 2, 14); // blade
+    melonGfx.fillStyle(0x886622);
+    melonGfx.fillRect(30, 28, 4, 4); // hilt
+    melonGfx.generateTexture('enemy-melon', 40, 40);
+    melonGfx.destroy();
+
+    // Flower minion (for Marabeige) - LoL caster minion with flower head
+    const beerGfx = scene.make.graphics({ x: 0, y: 0, add: false });
+    // Robe/body (pink/magenta)
+    beerGfx.fillStyle(0xcc44aa);
+    beerGfx.fillTriangle(10, 38, 20, 16, 30, 38);
+    beerGfx.fillStyle(0x993388);
+    beerGfx.fillTriangle(12, 38, 20, 20, 28, 38);
+    // Flower head - petals
+    beerGfx.fillStyle(0xff66aa);
+    beerGfx.fillCircle(14, 8, 5);  // left petal
+    beerGfx.fillCircle(26, 8, 5);  // right petal
+    beerGfx.fillCircle(20, 4, 5);  // top petal
+    beerGfx.fillCircle(16, 14, 5); // bottom-left petal
+    beerGfx.fillCircle(24, 14, 5); // bottom-right petal
+    // Center of flower (face)
+    beerGfx.fillStyle(0xffdd00);
+    beerGfx.fillCircle(20, 10, 6);
+    // Evil eyes
+    beerGfx.fillStyle(0x660000);
+    beerGfx.fillRect(17, 8, 3, 3);
+    beerGfx.fillRect(22, 8, 3, 3);
+    // Pollen particles floating around
+    beerGfx.fillStyle(0xffff66);
+    beerGfx.fillCircle(8, 4, 2);
+    beerGfx.fillCircle(32, 6, 2);
+    beerGfx.fillCircle(6, 16, 2);
+    beerGfx.fillCircle(34, 14, 2);
+    // Staff with pollen orb
+    beerGfx.fillStyle(0x44aa44);
+    beerGfx.fillRect(31, 10, 2, 26); // green stem staff
+    beerGfx.fillStyle(0xffff00);
+    beerGfx.fillCircle(32, 9, 3); // pollen orb
+    beerGfx.generateTexture('enemy-flower', 40, 40);
+    beerGfx.destroy();
 
     // Microsoft Teams notification enemy
     const teamsGfx = scene.make.graphics({ x: 0, y: 0, add: false });
@@ -616,6 +722,75 @@ export function createItemSprites(scene) {
     heartGfx.fillTriangle(6, 16, 34, 16, 20, 34);
     heartGfx.generateTexture('heart', 40, 40);
     heartGfx.destroy();
+
+    // McDonald's collectibles for Level 1
+    // Big Mac
+    const bigmacGfx = scene.make.graphics({ x: 0, y: 0, add: false });
+    bigmacGfx.fillStyle(0xd4a043); // top bun
+    bigmacGfx.fillRoundedRect(8, 6, 24, 8, 4);
+    bigmacGfx.fillStyle(0x228b22); // lettuce
+    bigmacGfx.fillRect(6, 13, 28, 3);
+    bigmacGfx.fillStyle(0x8b4513); // patty 1
+    bigmacGfx.fillRect(8, 16, 24, 5);
+    bigmacGfx.fillStyle(0xd4a043); // middle bun
+    bigmacGfx.fillRect(8, 21, 24, 4);
+    bigmacGfx.fillStyle(0x8b4513); // patty 2
+    bigmacGfx.fillRect(8, 25, 24, 5);
+    bigmacGfx.fillStyle(0xffcc00); // cheese
+    bigmacGfx.fillRect(6, 24, 28, 2);
+    bigmacGfx.fillStyle(0xd4a043); // bottom bun
+    bigmacGfx.fillRect(8, 30, 24, 6);
+    bigmacGfx.generateTexture('mcdonalds-bigmac', 40, 40);
+    bigmacGfx.destroy();
+
+    // Fries
+    const friesGfx = scene.make.graphics({ x: 0, y: 0, add: false });
+    friesGfx.fillStyle(0xcc0000); // box
+    friesGfx.fillRect(10, 16, 20, 18);
+    friesGfx.fillStyle(0xffcc00); // M on box
+    friesGfx.fillRect(14, 22, 3, 8);
+    friesGfx.fillRect(23, 22, 3, 8);
+    friesGfx.fillRect(17, 20, 2, 4);
+    friesGfx.fillRect(21, 20, 2, 4);
+    friesGfx.fillStyle(0xffdd44); // fries sticking out
+    friesGfx.fillRect(12, 8, 3, 12);
+    friesGfx.fillRect(16, 6, 3, 14);
+    friesGfx.fillRect(20, 7, 3, 13);
+    friesGfx.fillRect(24, 9, 3, 11);
+    friesGfx.generateTexture('mcdonalds-fries', 40, 40);
+    friesGfx.destroy();
+
+    // Hamburger
+    const burgerGfx = scene.make.graphics({ x: 0, y: 0, add: false });
+    burgerGfx.fillStyle(0xd4a043); // top bun
+    burgerGfx.fillRoundedRect(8, 10, 24, 8, 4);
+    burgerGfx.fillStyle(0x228b22); // lettuce
+    burgerGfx.fillRect(6, 17, 28, 3);
+    burgerGfx.fillStyle(0x8b4513); // patty
+    burgerGfx.fillRect(8, 20, 24, 5);
+    burgerGfx.fillStyle(0xffcc00); // cheese
+    burgerGfx.fillRect(6, 19, 28, 2);
+    burgerGfx.fillStyle(0xd4a043); // bottom bun
+    burgerGfx.fillRect(8, 25, 24, 6);
+    burgerGfx.generateTexture('mcdonalds-burger', 40, 40);
+    burgerGfx.destroy();
+
+    // Soda cup
+    const sodaGfx = scene.make.graphics({ x: 0, y: 0, add: false });
+    sodaGfx.fillStyle(0xcc0000); // cup
+    sodaGfx.fillRect(13, 10, 14, 24);
+    sodaGfx.fillRect(11, 10, 18, 4); // wider top
+    sodaGfx.fillStyle(0xffcc00); // M logo
+    sodaGfx.fillRect(16, 18, 2, 6);
+    sodaGfx.fillRect(22, 18, 2, 6);
+    sodaGfx.fillRect(18, 16, 1, 3);
+    sodaGfx.fillRect(21, 16, 1, 3);
+    sodaGfx.fillStyle(0xffffff); // lid
+    sodaGfx.fillRect(10, 8, 20, 3);
+    sodaGfx.fillStyle(0xcccccc); // straw
+    sodaGfx.fillRect(18, 2, 2, 8);
+    sodaGfx.generateTexture('mcdonalds-soda', 40, 40);
+    sodaGfx.destroy();
 
     // Dog companion - French Bulldog
     const frenchieGfx = scene.make.graphics({ x: 0, y: 0, add: false });

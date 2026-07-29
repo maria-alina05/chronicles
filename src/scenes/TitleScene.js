@@ -86,7 +86,7 @@ export class TitleScene extends Phaser.Scene {
         });
 
         // Start prompt
-        const startText = this.add.text(width / 2, 440, 'Press ENTER to begin your adventure', {
+        const startText = this.add.text(width / 2, 440, 'Tap to start', {
             fontFamily: '"Press Start 2P"',
             fontSize: '11px',
             color: '#ffffff'
@@ -101,24 +101,26 @@ export class TitleScene extends Phaser.Scene {
         });
 
         // Controls info
-        this.add.text(width / 2, 490, 'P1: WASD + E  |  P2: Arrows + Space', {
+        this.add.text(width / 2, 490, 'WASD / Arrows / Touch to move', {
             fontFamily: '"Press Start 2P"',
             fontSize: '8px',
             color: '#666688'
         }).setOrigin(0.5);
 
-        this.add.text(width / 2, 510, 'A co-op love story', {
+        this.add.text(width / 2, 510, 'A love story survival game', {
             fontFamily: '"Press Start 2P"',
             fontSize: '8px',
             color: '#666688'
         }).setOrigin(0.5);
 
         // Input
-        this.input.keyboard.on('keydown-ENTER', () => {
+        const startGame = () => {
             this.cameras.main.fadeOut(500, 0, 0, 0);
             this.time.delayedCall(500, () => {
-                this.scene.start('StoryScene', { levelIndex: 0, isIntro: true });
+                this.scene.start('CharacterSelectScene');
             });
-        });
+        };
+        this.input.keyboard.on('keydown-ENTER', startGame);
+        this.input.on('pointerdown', startGame);
     }
 }

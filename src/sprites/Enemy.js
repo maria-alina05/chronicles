@@ -8,52 +8,53 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
         
         this.enemyType = type;
         this.health = config.health || 2;
+        this.maxHealth = this.health;
         this.damage = config.damage || 1;
-        this.speed = config.speed || 80;
-        this.patrolRange = config.patrolRange || 100;
-        this.startX = x;
-        this.direction = 1;
-        this.floating = config.floating || false;
+        this.speed = config.speed || 60;
+        this.xpValue = config.xpValue || 1;
         
-        this.setScale(1.2);
-        this.setBounce(0.1);
+        this.setScale(config.scale || 1);
+        this.setBounce(0);
+        this.body.setAllowGravity(false);
+        this.setDepth(5);
         
-        if (this.floating) {
-            this.body.setAllowGravity(false);
-            this.floatTween = scene.tweens.add({
-                targets: this,
-                y: y - 20,
-                duration: 1500,
-                yoyo: true,
-                repeat: -1,
-                ease: 'Sine.easeInOut'
-            });
-        }
+        // Chase behavior
+        this.chaseTarget = null;
     }
 
     update(time, delta) {
-        if (this.floating) return;
+        if (!this.active || !this.scene) return;
         
-        // Patrol behavior
-        if (this.x > this.startX + this.patrolRange) {
-            this.direction = -1;
-            this.setFlipX(true);
-        } else if (this.x < this.startX - this.patrolRange) {
-            this.direction = 1;
-            this.setFlipX(false);
-        }
+        // Find nearest player to chase
+        const player = this.scene.player;
+        if (!player || !player.active) return;
         
-        this.setVelocityX(this.speed * this.direction);
+        // Move toward player
+        const angle = Phaser.Math.Angle.Between(this.x, this.y, player.x, player.y);
+        this.setVelocity(
+            Math.cos(angle) * this.speed,
+            Math.sin(angle) * this.speed
+        );
+        
+        // Flip sprite based on direction
+        this.setFlipX(player.x < this.x);
     }
 
     takeDamage(amount) {
         this.health -= amount;
         
-        // Flash white
         this.setTint(0xffffff);
-        this.scene.time.delayedCall(100, () => {
-            this.clearTint();
+        this.scene.time.delayedCall(60, () => {
+            if (this.active) this.clearTint();
         });
+        
+        // Knockback
+        if (this.scene.player) {
+            const angle = Phaser.Math.Angle.Between(
+                this.scene.player.x, this.scene.player.y, this.x, this.y
+            );
+            this.setVelocity(Math.cos(angle) * 200, Math.sin(angle) * 200);
+        }
         
         if (this.health <= 0) {
             this.die();
@@ -62,34 +63,32 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
 
     die() {
         // Death particles
-        const particles = this.scene.add.particles(this.x, this.y, null, {
-            speed: { min: 50, max: 150 },
-            angle: { min: 0, max: 360 },
-            scale: { start: 0.5, end: 0 },
-            lifespan: 500,
-            quantity: 8,
-            emitting: false
-        });
-        
-        // Create small colored squares as particles
-        for (let i = 0; i < 6; i++) {
-            const px = this.x + Phaser.Math.Between(-10, 10);
-            const py = this.y + Phaser.Math.Between(-10, 10);
+        for (let i = 0; i < 5; i++) {
+            const px = this.x + Phaser.Math.Between(-8, 8);
+            const py = this.y + Phaser.Math.Between(-8, 8);
             const particle = this.scene.add.rectangle(px, py, 4, 4, 0xffaa00);
             this.scene.tweens.add({
                 targets: particle,
-                x: px + Phaser.Math.Between(-40, 40),
-                y: py + Phaser.Math.Between(-60, -20),
+                x: px + Phaser.Math.Between(-30, 30),
+                y: py + Phaser.Math.Between(-30, 30),
                 alpha: 0,
                 scale: 0,
-                duration: 400,
+                duration: 350,
                 onComplete: () => particle.destroy()
             });
         }
         
-        // Score
+        // Drop XP gem
+        if (this.scene.spawnXPGem) {
+            this.scene.spawnXPGem(this.x, this.y, this.xpValue);
+        }
+        
+        // Track kill
+        if (this.scene.player) {
+            this.scene.player.killCount++;
+        }
         if (this.scene.addScore) {
-            this.scene.addScore(10);
+            this.scene.addScore(5);
         }
         
         this.destroy();

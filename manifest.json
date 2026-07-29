@@ -1,0 +1,22 @@
+{
+  "name": "Chronicles of Zanuff & Marabeige",
+  "short_name": "Zanuff & Mara",
+  "description": "A Vampire Survivors-style game about two lovers fighting through their memories together.",
+  "start_url": "./index.html",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#1a1a2e",
+  "theme_color": "#e94560",
+  "icons": [
+    {
+      "src": "icons/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "icons/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}

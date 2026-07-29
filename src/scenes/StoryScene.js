@@ -9,6 +9,7 @@ export class StoryScene extends Phaser.Scene {
         this.levelIndex = data.levelIndex !== undefined ? data.levelIndex : 0;
         this.isIntro = data.isIntro || false;
         this.isAfter = data.isAfter || false;
+        this.selectedCharacter = data.character || 'zanuff';
     }
 
     create() {
@@ -38,7 +39,7 @@ export class StoryScene extends Phaser.Scene {
             // After intro text, transition to Level 1
             this.cameras.main.fadeOut(800, 0, 0, 0);
             this.time.delayedCall(800, () => {
-                this.scene.start('StoryScene', { levelIndex: 0, isIntro: false });
+                this.scene.start('StoryScene', { levelIndex: 0, isIntro: false, character: this.selectedCharacter });
             });
         });
     }
@@ -85,9 +86,38 @@ export class StoryScene extends Phaser.Scene {
         this.add.image(width / 2 - 35, 295, 'zanuff').setScale(1.2);
         this.add.image(width / 2 + 35, 298, 'marabeige').setScale(1.2);
 
+        // McDonald's food between them
+        const mcGfx = this.add.graphics();
+        // Fries box (red with yellow M)
+        mcGfx.fillStyle(0xcc0000);
+        mcGfx.fillRect(width / 2 - 8, 308, 16, 20);
+        mcGfx.fillStyle(0xffcc00);
+        // Golden arches M
+        mcGfx.fillRect(width / 2 - 5, 312, 3, 8);
+        mcGfx.fillRect(width / 2 + 2, 312, 3, 8);
+        mcGfx.fillRect(width / 2 - 3, 310, 2, 4);
+        mcGfx.fillRect(width / 2 + 1, 310, 2, 4);
+        // Fries sticking out
+        mcGfx.fillStyle(0xffdd44);
+        mcGfx.fillRect(width / 2 - 6, 302, 3, 10);
+        mcGfx.fillRect(width / 2 - 2, 300, 3, 12);
+        mcGfx.fillRect(width / 2 + 2, 301, 3, 11);
+        mcGfx.fillRect(width / 2 + 5, 303, 3, 9);
+        // Burger on the other side
+        mcGfx.fillStyle(0xd4a043); // bun top
+        mcGfx.fillRoundedRect(width / 2 + 15, 315, 20, 8, 4);
+        mcGfx.fillStyle(0x228b22); // lettuce
+        mcGfx.fillRect(width / 2 + 14, 322, 22, 3);
+        mcGfx.fillStyle(0x8b4513); // patty
+        mcGfx.fillRect(width / 2 + 15, 325, 20, 5);
+        mcGfx.fillStyle(0xffcc00); // cheese
+        mcGfx.fillRect(width / 2 + 14, 324, 22, 2);
+        mcGfx.fillStyle(0xd4a043); // bun bottom
+        mcGfx.fillRect(width / 2 + 15, 330, 20, 6);
+
         // Controllers in hands
-        this.add.image(width / 2 - 20, 320, 'powerup-controller').setScale(0.7);
-        this.add.image(width / 2 + 50, 320, 'powerup-controller').setScale(0.7).setFlipX(true);
+        this.add.image(width / 2 - 55, 320, 'powerup-controller').setScale(0.7);
+        this.add.image(width / 2 + 55, 320, 'powerup-controller').setScale(0.7).setFlipX(true);
 
         // Glitch effect after a moment
         this.time.delayedCall(3000, () => {
@@ -202,7 +232,7 @@ export class StoryScene extends Phaser.Scene {
         }
 
         // Continue prompt
-        const continueText = this.add.text(width / 2, 490, 'Press ENTER to start', {
+        const continueText = this.add.text(width / 2, 490, 'Tap to start', {
             fontFamily: '"Press Start 2P"',
             fontSize: '10px',
             color: '#ffffff'
@@ -228,7 +258,14 @@ export class StoryScene extends Phaser.Scene {
             this.cameras.main.fadeOut(500, 0, 0, 0);
             this.time.delayedCall(500, () => {
                 const sceneKey = `Level${this.levelIndex + 1}Scene`;
-                this.scene.start(sceneKey);
+                this.scene.start(sceneKey, { character: this.selectedCharacter });
+            });
+        });
+        this.input.on('pointerdown', () => {
+            this.cameras.main.fadeOut(500, 0, 0, 0);
+            this.time.delayedCall(500, () => {
+                const sceneKey = `Level${this.levelIndex + 1}Scene`;
+                this.scene.start(sceneKey, { character: this.selectedCharacter });
             });
         });
     }
@@ -291,7 +328,7 @@ export class StoryScene extends Phaser.Scene {
         // Continue
         const nextLevelIndex = this.levelIndex + 1;
         const isLastLevel = nextLevelIndex >= GAME_DATA.levels.length;
-        const promptText = isLastLevel ? 'Press ENTER for the finale' : 'Press ENTER for the next chapter';
+        const promptText = isLastLevel ? 'Tap for the finale' : 'Tap for next chapter';
         
         const continueText = this.add.text(width / 2, 480, promptText, {
             fontFamily: '"Press Start 2P"',
@@ -313,7 +350,17 @@ export class StoryScene extends Phaser.Scene {
                 if (isLastLevel) {
                     this.scene.start('EndingScene');
                 } else {
-                    this.scene.start('StoryScene', { levelIndex: nextLevelIndex });
+                    this.scene.start('StoryScene', { levelIndex: nextLevelIndex, character: this.selectedCharacter });
+                }
+            });
+        });
+        this.input.on('pointerdown', () => {
+            this.cameras.main.fadeOut(500, 0, 0, 0);
+            this.time.delayedCall(500, () => {
+                if (isLastLevel) {
+                    this.scene.start('EndingScene');
+                } else {
+                    this.scene.start('StoryScene', { levelIndex: nextLevelIndex, character: this.selectedCharacter });
                 }
             });
         });
@@ -326,7 +373,7 @@ export class StoryScene extends Phaser.Scene {
         const showNext = () => {
             if (currentLine >= lines.length) {
                 // Show continue prompt
-                const cont = this.add.text(width / 2, 460, 'Press ENTER to continue', {
+                const cont = this.add.text(width / 2, 510, 'Tap to continue', {
                     fontFamily: '"Press Start 2P"',
                     fontSize: '10px',
                     color: '#ffffff'
@@ -339,10 +386,11 @@ export class StoryScene extends Phaser.Scene {
                     repeat: -1
                 });
                 this.input.keyboard.once('keydown-ENTER', onComplete);
+                this.input.once('pointerdown', onComplete);
                 return;
             }
 
-            const yPos = 370 + currentLine * 30;
+            const yPos = 380 + currentLine * 25;
             const text = this.add.text(width / 2, yPos, lines[currentLine], {
                 fontFamily: '"Press Start 2P"',
                 fontSize: '10px',
