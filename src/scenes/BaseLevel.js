@@ -32,7 +32,7 @@ export class BaseLevel extends Phaser.Scene {
         this.projectiles = this.physics.add.group();
         this.xpGems = this.physics.add.group();
         this.sprays = this.physics.add.group();
-        this.hazards = this.physics.add.group();
+        this.hazards = this.add.group();
         
         // Player (single character selection)
         this.player = new Player(this, width / 2, height / 2, this.selectedCharacter);
