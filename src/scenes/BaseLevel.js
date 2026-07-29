@@ -552,7 +552,7 @@ export class BaseLevel extends Phaser.Scene {
         const overlay = this.add.rectangle(width / 2, height / 2, width, height, 0x000000, 0.7)
             .setDepth(100).setScrollFactor(0);
         
-        const titleText = this.add.text(width / 2, 80, `LEVEL ${player.level}!`, {
+        const titleText = this.add.text(width / 2, 120, `LEVEL ${player.level}!`, {
             fontFamily: '"Press Start 2P"',
             fontSize: '18px',
             color: '#ffd700'
@@ -565,7 +565,7 @@ export class BaseLevel extends Phaser.Scene {
         const buttons = [];
         choices.forEach((choice, i) => {
             const bx = width / 2;
-            const by = 140 + i * 120;
+            const by = 220 + i * 140;
             
             const btn = this.add.rectangle(bx, by, 380, 90, 0x222244, 0.95)
                 .setStrokeStyle(2, 0xffd700)
