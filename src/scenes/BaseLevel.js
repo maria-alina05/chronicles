@@ -92,6 +92,7 @@ export class BaseLevel extends Phaser.Scene {
     update(time, delta) {
         if (this.isPaused || this.levelUpActive || this.levelComplete_flag) return;
         
+        this.updateTouchMovement();
         this.player.update(time, delta);
         
         // Update enemies
@@ -882,60 +883,45 @@ export class BaseLevel extends Phaser.Scene {
     // --- TOUCH CONTROLS ---
     
     createTouchControls() {
-        // Only show on touch devices or always show for mobile-friendly
-        const { width, height } = this.cameras.main;
-        
-        this.joystickBase = this.add.circle(120, height - 100, 55, 0xffffff, 0.2)
-            .setDepth(200).setScrollFactor(0);
-        this.joystickThumb = this.add.circle(120, height - 100, 26, 0xffffff, 0.5)
-            .setDepth(201).setScrollFactor(0);
-        
-        this.joystickActive = false;
-        this.joystickPointer = null;
+        this.touchTarget = null;
+        this.touchPointer = null;
         
         this.input.on('pointerdown', (pointer) => {
-            // Don't activate joystick during overlays
             if (this.isPaused || this.levelUpActive || this.levelComplete_flag) return;
-            // Left half of screen = joystick
-            if (pointer.x < width / 2) {
-                this.joystickActive = true;
-                this.joystickPointer = pointer;
-                this.joystickBase.setPosition(pointer.x, pointer.y);
-                this.joystickThumb.setPosition(pointer.x, pointer.y);
-            }
+            this.touchPointer = pointer;
+            this.touchTarget = { x: pointer.x, y: pointer.y };
         });
         
         this.input.on('pointermove', (pointer) => {
-            if (this.joystickActive && pointer === this.joystickPointer) {
-                const dx = pointer.x - this.joystickBase.x;
-                const dy = pointer.y - this.joystickBase.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                const maxDist = 45;
-                
-                if (dist > maxDist) {
-                    this.joystickThumb.setPosition(
-                        this.joystickBase.x + (dx / dist) * maxDist,
-                        this.joystickBase.y + (dy / dist) * maxDist
-                    );
-                } else {
-                    this.joystickThumb.setPosition(pointer.x, pointer.y);
-                }
-                
-                // Normalize to -1..1
-                const nx = Math.max(-1, Math.min(1, dx / maxDist));
-                const ny = Math.max(-1, Math.min(1, dy / maxDist));
-                this.player.touchVelocity = { x: nx, y: ny };
+            if (this.touchPointer && pointer === this.touchPointer) {
+                this.touchTarget = { x: pointer.x, y: pointer.y };
             }
         });
         
         this.input.on('pointerup', (pointer) => {
-            if (pointer === this.joystickPointer) {
-                this.joystickActive = false;
-                this.joystickPointer = null;
-                this.joystickThumb.setPosition(this.joystickBase.x, this.joystickBase.y);
+            if (pointer === this.touchPointer) {
+                this.touchPointer = null;
+                this.touchTarget = null;
                 this.player.touchVelocity = { x: 0, y: 0 };
             }
         });
+    }
+
+    updateTouchMovement() {
+        if (!this.touchTarget || !this.player) return;
+        
+        const dx = this.touchTarget.x - this.player.x;
+        const dy = this.touchTarget.y - this.player.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        
+        // Stop when close enough to avoid jitter
+        if (dist < 15) {
+            this.player.touchVelocity = { x: 0, y: 0 };
+            return;
+        }
+        
+        // Normalize direction
+        this.player.touchVelocity = { x: dx / dist, y: dy / dist };
     }
 
     // --- HUD ---
