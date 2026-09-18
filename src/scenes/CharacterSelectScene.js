@@ -42,8 +42,8 @@ export class CharacterSelectScene extends Phaser.Scene {
 
         // Layout: side-by-side in landscape, stacked in portrait
         const isLandscape = width > height;
-        const cardW = isLandscape ? 360 : 400;
-        const cardH = isLandscape ? height - 120 : 200;
+        const cardW = isLandscape ? 360 : Math.min(width - 32, 500);
+        const cardH = isLandscape ? height - 120 : Math.min(210, height * 0.22);
         const zanuffX = isLandscape ? width * 0.27 : width / 2;
         const zanuffY = isLandscape ? height / 2 + 25 : 210;
         const marabeigeX = isLandscape ? width * 0.73 : width / 2;
@@ -62,16 +62,10 @@ export class CharacterSelectScene extends Phaser.Scene {
         const zTextX = isLandscape ? zanuffX : zanuffX + 40;
         const zTextBaseY = isLandscape ? zanuffY + 10 : zanuffY - 50;
 
-        this.add.text(zTextX, zTextBaseY, 'ZANUFF', {
+        this.add.text(zTextX, zTextBaseY, 'THE CRAFTING BARD', {
             fontFamily: '"Press Start 2P"',
             fontSize: '14px',
             color: '#6688ff'
-        }).setOrigin(0.5);
-
-        this.add.text(zTextX, zTextBaseY + 22, 'The Gamer', {
-            fontFamily: '"Press Start 2P"',
-            fontSize: '8px',
-            color: '#aabbff'
         }).setOrigin(0.5);
 
         this.add.text(zTextX, zTextBaseY + 62, '+ High damage\n+ Tanky (7 HP)\n- Slower movement\n- HATES melons', {
@@ -101,16 +95,10 @@ export class CharacterSelectScene extends Phaser.Scene {
         const mTextX = isLandscape ? marabeigeX : marabeigeX + 40;
         const mTextBaseY = isLandscape ? marabeigeY + 10 : marabeigeY - 50;
 
-        this.add.text(mTextX, mTextBaseY, 'MARABEIGE', {
+        this.add.text(mTextX, mTextBaseY, 'THE NONCHALANT DAMSEL', {
             fontFamily: '"Press Start 2P"',
             fontSize: '14px',
             color: '#ff6688'
-        }).setOrigin(0.5);
-
-        this.add.text(mTextX, mTextBaseY + 22, 'The Home Cook', {
-            fontFamily: '"Press Start 2P"',
-            fontSize: '8px',
-            color: '#ffaacc'
         }).setOrigin(0.5);
 
         this.add.text(mTextX, mTextBaseY + 62, '+ Fast movement\n+ Rapid attacks\n- Less HP (5)\n- Allergic to flowers\n- Afraid of heights', {

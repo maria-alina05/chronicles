@@ -6,7 +6,7 @@ export class Level3Scene extends BaseLevel {
     }
 
     getEnemyTypes() {
-        return ['tourist', 'tourist', 'generic', 'butterfly'];
+        return ['tourist', 'tourist', 'generic', 'pigeon'];
     }
 
     createBackground() {

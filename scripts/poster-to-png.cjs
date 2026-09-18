@@ -5,8 +5,8 @@ async function main() {
     const browser = await puppeteer.launch({ headless: 'new' });
     const page = await browser.newPage();
     
-    // Set viewport large enough for the poster (A3 ratio at 2x for print quality)
-    await page.setViewport({ width: 1600, height: 2300, deviceScaleFactor: 2 });
+    // Poster CSS size is 1123x1587 (A3 @96dpi) + padding, captured at 3x scale (~300dpi)
+    await page.setViewport({ width: 1163, height: 1627, deviceScaleFactor: 3 });
     
     const posterPath = path.resolve(__dirname, '..', 'poster.html');
     await page.goto(`file:///${posterPath.replace(/\\/g, '/')}`, { waitUntil: 'networkidle0' });
@@ -21,6 +21,16 @@ async function main() {
         const outputPath = path.resolve(__dirname, '..', 'poster.png');
         await poster.screenshot({ path: outputPath, type: 'png', omitBackground: true });
         console.log('Poster saved to: ' + outputPath);
+
+        const pdfPath = path.resolve(__dirname, '..', 'poster.pdf');
+        await page.pdf({
+            path: pdfPath,
+            format: 'A3',
+            printBackground: true,
+            preferCSSPageSize: true,
+            margin: { top: '0mm', right: '0mm', bottom: '0mm', left: '0mm' }
+        });
+        console.log('Poster PDF saved to: ' + pdfPath);
     } else {
         console.error('Could not find .poster element');
     }

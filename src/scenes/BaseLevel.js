@@ -185,7 +185,7 @@ export class BaseLevel extends Phaser.Scene {
         if (this.player && this.player.characterId === 'zanuff') {
             return ['melon', 'melon', 'melon', 'doubt', 'generic'];
         } else if (this.player && this.player.characterId === 'marabeige') {
-            return ['flower', 'flower', 'flower', 'butterfly', 'generic'];
+            return ['flower', 'flower', 'flower', 'pigeon', 'generic'];
         }
         return ['generic'];
     }
@@ -200,7 +200,7 @@ export class BaseLevel extends Phaser.Scene {
             'teams': { health: 2, speed: 50, damage: 1, xpValue: 2 },
             'paper': { health: 4, speed: 35, damage: 1, xpValue: 3, scale: 1.3 },
             'box': { health: 3, speed: 65, damage: 1, xpValue: 2 },
-            'butterfly': { health: 1, speed: 90, damage: 1, xpValue: 1 },
+            'pigeon': { health: 1, speed: 90, damage: 1, xpValue: 1 },
             'tourist': { health: 2, speed: 55, damage: 1, xpValue: 1 },
             'mcdonalds': { health: 2, speed: 65, damage: 1, xpValue: 1 },
             'bmw': { health: 3, speed: 70, damage: 1, xpValue: 2, scale: 1.1 },
@@ -672,6 +672,17 @@ export class BaseLevel extends Phaser.Scene {
                 apply: (p) => { p.health = p.maxHealth; }
             }
         ];
+
+        upgrades.push({
+            name: 'Pokemon Ball',
+            desc: 'Bouncing proposal power-up',
+            color: '#e53935',
+            apply: (p) => {
+                const w = p.weapons.find(w => w.type === 'pokemon-ball');
+                if (w) w.level++;
+                else p.weapons.push({ type: 'pokemon-ball', level: 1 });
+            }
+        });
         
         // Character-specific weapon upgrades
         if (player.characterId === 'zanuff') {
@@ -747,13 +758,13 @@ export class BaseLevel extends Phaser.Scene {
                 }
             });
             upgrades.push({
-                name: 'Cooking Fire',
-                desc: 'Flame ring around you',
-                color: '#ff6600',
+                name: 'Cute Pugs',
+                desc: 'Gather adorable pug companions',
+                color: '#d4b08c',
                 apply: (p) => {
-                    const w = p.weapons.find(w => w.type === 'cooking-fire');
+                    const w = p.weapons.find(w => w.type === 'cute-dogs');
                     if (w) w.level++;
-                    else p.weapons.push({ type: 'cooking-fire', level: 1 });
+                    else p.weapons.push({ type: 'cute-dogs', level: 1 });
                 }
             });
         }
@@ -1034,7 +1045,9 @@ export class BaseLevel extends Phaser.Scene {
     
     showDialogBubble(dialog) {
         const { width, height } = this.cameras.main;
-        const name = dialog.speaker === 'zanuff' ? 'Zanuff' : 'Marabeige';
+        const name = dialog.speaker === 'zanuff'
+            ? GAME_DATA.players.p1.inGameName
+            : GAME_DATA.players.p2.inGameName;
         const color = dialog.speaker === 'zanuff' ? '#6688ff' : '#ff6688';
         const bubbleY = height * 0.12;
         const wrapW = Math.min(width - 60, 350);

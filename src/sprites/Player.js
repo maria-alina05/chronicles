@@ -1,3 +1,5 @@
+import { GAME_DATA } from '../constants.js';
+
 export class Player extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, characterId) {
         const texture = characterId === 'zanuff' ? 'zanuff' : 'marabeige';
@@ -7,7 +9,9 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this);
         
         this.characterId = characterId;
-        this.playerName = characterId === 'zanuff' ? 'Zanuff' : 'Marabeige';
+        this.playerName = characterId === 'zanuff'
+            ? GAME_DATA.players.p1.inGameName
+            : GAME_DATA.players.p2.inGameName;
         this.normalTexture = texture;
         this.facing = 1;
         
@@ -165,6 +169,8 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
                 case 'cooking-fire': this.fireCookingFire(weapon.level); break;
                 case 'cheese-wheel': this.fireCheeseWheel(nearest, weapon.level); break;
                 case 'ice-cream-cone': this.fireIceCreamCone(weapon.level); break;
+                case 'cute-dogs': this.fireCuteDogs(nearest, weapon.level); break;
+                case 'pokemon-ball': this.firePokemonBall(nearest, weapon.level); break;
             }
         });
     }
@@ -352,6 +358,59 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
                 onComplete: () => flame.destroy()
             });
         }
+    }
+
+    fireCuteDogs(target, level) {
+        if (!target || !target.active) return;
+
+        const count = Math.min(1 + level, 4);
+        for (let i = 0; i < count; i++) {
+            const dog = this.scene.add.image(this.x, this.y, 'dog-pug').setScale(0.65);
+            this.scene.physics.add.existing(dog);
+            dog.body.setAllowGravity(false);
+            dog.body.setCircle(13, 7, 7);
+
+            const angle = Phaser.Math.Angle.Between(this.x, this.y, target.x, target.y)
+                + (i - (count - 1) / 2) * 0.18;
+            dog.body.setVelocity(Math.cos(angle) * 230, Math.sin(angle) * 230);
+            this.scene.projectiles.add(dog);
+            dog.damage = this.attackDamage + level;
+            dog.isPiercing = false;
+
+            this.scene.tweens.add({
+                targets: dog,
+                angle: 12,
+                yoyo: true,
+                repeat: 2,
+                duration: 100,
+                onComplete: () => { if (dog.active) dog.destroy(); }
+            });
+        }
+    }
+
+    firePokemonBall(target, level) {
+        if (!target || !target.active) return;
+
+        const ball = this.scene.add.image(this.x, this.y, 'powerup-pokemon-ball').setScale(0.55);
+        this.scene.physics.add.existing(ball);
+        ball.body.setAllowGravity(false);
+        ball.body.setCircle(11, 9, 9);
+        ball.body.setBounce(1, 1);
+        ball.body.setCollideWorldBounds(true);
+
+        const angle = Phaser.Math.Angle.Between(this.x, this.y, target.x, target.y);
+        ball.body.setVelocity(Math.cos(angle) * (300 + level * 20), Math.sin(angle) * (300 + level * 20));
+        this.scene.projectiles.add(ball);
+        ball.damage = this.attackDamage + level;
+        ball.isPiercing = level >= 2;
+
+        this.scene.tweens.add({
+            targets: ball,
+            angle: 360,
+            duration: 500,
+            repeat: 2,
+            onComplete: () => { if (ball.active) ball.destroy(); }
+        });
     }
 
     fireCheeseWheel(target, level) {

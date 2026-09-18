@@ -3,8 +3,8 @@ export const GAME_DATA = {
     title: 'The Chronicles of Zanuff & Marabeige',
     subtitle: '"Mad About You"',
     players: {
-        p1: { name: 'Zanuff', realName: 'Andrei' },
-        p2: { name: 'Marabeige', realName: 'Maria' }
+        p1: { name: 'Zanuff', inGameName: 'The Crafting Bard', realName: 'Andrei' },
+        p2: { name: 'Marabeige', inGameName: 'The Nonchalant Damsel', realName: 'Maria' }
     },
     intro: {
         description: [
@@ -62,7 +62,7 @@ export const GAME_DATA = {
             date: 'January 31, 2026',
             description: 'Exactly one year later. A 3D-printed Pokemon ball. A resin ring inside. One question. One forever.',
             theme: 'romantic',
-            enemies: ['butterfly-nerves', 'ring-guardian'],
+            enemies: ['pigeon-nerves', 'ring-guardian'],
             flowers: true,
             storyBefore: ['One year since we found each other again...', 'Zanuff has a Pokemon ball and something important to say.'],
             storyAfter: ['She said YES!', 'Achievement Unlocked: Eternal Bond']
@@ -120,7 +120,8 @@ export const COLORS = {
         hairHighlight: 0xe0c878, // lighter highlights
         skin: 0xffdab9,      // light peach
         eyes: 0x2ea5b5,      // blueish-green teal
-        outfit: 0xe94560     // pink/red
+        outfit: 0xff8fc7,    // bubblegum pink dress
+        outfitAccent: 0xd9509a // deeper rose pink trim, skirt, shoes
     },
     // Andrei/Zanuff colors
     andrei: {

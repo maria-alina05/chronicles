@@ -199,7 +199,9 @@ export class StoryScene extends Phaser.Scene {
         const dialogSpacing = isLandscape ? Math.min(40, (height * 0.35) / Math.max(storyLines.length, 1)) : 50;
         if (storyLines.length > 0) {
             storyLines.forEach((line, i) => {
-                const speaker = i % 2 === 0 ? 'Zanuff' : 'Marabeige';
+                const speaker = i % 2 === 0
+                    ? 'The Crafting Bard'
+                    : 'The Nonchalant Damsel';
                 const color = i % 2 === 0 ? '#6688ff' : '#ff6688';
                 const dialogText = this.add.text(width / 2, dialogStartY + i * dialogSpacing, `${speaker}: "${line}"`, {
                     fontFamily: '"Press Start 2P"',

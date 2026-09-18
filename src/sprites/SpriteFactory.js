@@ -283,11 +283,11 @@ function drawMarabeige(gfx) {
     gfx.fillStyle(COLORS.maria.outfit);
     gfx.fillRect(15, 32, 18, 18);
     // Neckline detail
-    gfx.fillStyle(0xc73550);
+    gfx.fillStyle(0x2a4fb0);
     gfx.fillRect(19, 32, 10, 3);
 
     // Skirt
-    gfx.fillStyle(0xc73550);
+    gfx.fillStyle(0x2a4fb0);
     gfx.fillRect(13, 48, 22, 8);
 
     // Legs (slim)
@@ -295,7 +295,7 @@ function drawMarabeige(gfx) {
     gfx.fillRect(16, 56, 6, 12);
     gfx.fillRect(26, 56, 6, 12);
     // Shoes
-    gfx.fillStyle(0xcc3366);
+    gfx.fillStyle(0x22397a);
     gfx.fillRect(15, 68, 8, 4);
     gfx.fillRect(25, 68, 8, 4);
 
@@ -380,8 +380,8 @@ function drawMarabeige(gfx) {
     // Necklace
     gfx.fillStyle(0xcccccc);
     gfx.fillRect(18, 30, 12, 1);
-    gfx.fillStyle(0x3344aa);
-    gfx.fillRect(23, 31, 2, 2); // pendant
+    gfx.fillStyle(COLORS.maria.outfitAccent);
+    gfx.fillRect(23, 31, 2, 2); // heart pendant
 
     // Arms (slim)
     gfx.fillStyle(COLORS.maria.skin);
@@ -393,23 +393,41 @@ function drawMarabeige(gfx) {
 }
 
 function drawMarabeigeJump(gfx) {
-    // Body
+    // Bodice
     gfx.fillStyle(COLORS.maria.outfit);
     gfx.fillRect(15, 30, 18, 18);
-    gfx.fillStyle(0xc73550);
+    // Puffy sleeves
+    gfx.fillRect(10, 31, 5, 8);
+    gfx.fillRect(33, 31, 5, 8);
+    // Neckline trim
+    gfx.fillStyle(COLORS.maria.outfitAccent);
     gfx.fillRect(19, 30, 10, 3);
+    // Bow at neckline
+    gfx.fillStyle(0xffffff);
+    gfx.fillRect(21, 32, 2, 3);
+    gfx.fillRect(25, 32, 2, 3);
+    gfx.fillStyle(COLORS.maria.outfitAccent);
+    gfx.fillRect(23, 33, 2, 2);
 
-    // Skirt flowing
-    gfx.fillStyle(0xc73550);
+    // Skirt flowing with scalloped hem
+    gfx.fillStyle(COLORS.maria.outfitAccent);
     gfx.fillRect(11, 46, 26, 8);
+    gfx.fillStyle(COLORS.maria.outfit);
+    gfx.fillRect(11, 52, 4, 2);
+    gfx.fillRect(18, 52, 4, 2);
+    gfx.fillRect(25, 52, 4, 2);
+    gfx.fillRect(31, 52, 4, 2);
 
     // Legs spread
     gfx.fillStyle(COLORS.maria.skin);
     gfx.fillRect(13, 54, 6, 14);
     gfx.fillRect(29, 54, 6, 14);
-    gfx.fillStyle(0xcc3366);
+    gfx.fillStyle(COLORS.maria.outfitAccent);
     gfx.fillRect(12, 66, 8, 4);
     gfx.fillRect(28, 66, 8, 4);
+    gfx.fillStyle(0xffffff);
+    gfx.fillRect(15, 67, 2, 1);
+    gfx.fillRect(31, 67, 2, 1);
 
     // Head
     gfx.fillStyle(COLORS.maria.skin);
@@ -475,8 +493,8 @@ function drawMarabeigeJump(gfx) {
     // Necklace
     gfx.fillStyle(0xcccccc);
     gfx.fillRect(18, 28, 12, 1);
-    gfx.fillStyle(0x3344aa);
-    gfx.fillRect(23, 29, 2, 2);
+    gfx.fillStyle(COLORS.maria.outfitAccent);
+    gfx.fillRect(23, 29, 2, 2); // heart pendant
 
     // Arms up
     gfx.fillStyle(COLORS.maria.skin);
@@ -565,18 +583,23 @@ export function createEnemySprites(scene) {
     boxGfx.generateTexture('enemy-box', 40, 40);
     boxGfx.destroy();
 
-    // Butterfly (nervousness)
-    const butterflyGfx = scene.make.graphics({ x: 0, y: 0, add: false });
-    butterflyGfx.fillStyle(0xff88cc);
-    butterflyGfx.fillCircle(12, 16, 10);
-    butterflyGfx.fillCircle(28, 16, 10);
-    butterflyGfx.fillStyle(0xff44aa);
-    butterflyGfx.fillCircle(12, 22, 7);
-    butterflyGfx.fillCircle(28, 22, 7);
-    butterflyGfx.fillStyle(0x333333);
-    butterflyGfx.fillRect(19, 10, 2, 22);
-    butterflyGfx.generateTexture('enemy-butterfly', 40, 40);
-    butterflyGfx.destroy();
+    // Pigeon (nervousness)
+    const pigeonGfx = scene.make.graphics({ x: 0, y: 0, add: false });
+    pigeonGfx.fillStyle(0x9aa0aa);
+    pigeonGfx.fillEllipse(20, 24, 24, 16);
+    pigeonGfx.fillStyle(0xc6ccd4);
+    pigeonGfx.fillCircle(20, 12, 9);
+    pigeonGfx.fillStyle(0x555b66);
+    pigeonGfx.fillTriangle(12, 20, 4, 27, 16, 30);
+    pigeonGfx.fillTriangle(28, 20, 36, 27, 24, 30);
+    pigeonGfx.fillStyle(0x222222);
+    pigeonGfx.fillCircle(23, 10, 2);
+    pigeonGfx.fillStyle(0xd99a3d);
+    pigeonGfx.fillTriangle(28, 12, 36, 15, 28, 17);
+    pigeonGfx.fillStyle(0xd7a64a);
+    pigeonGfx.fillRect(14, 33, 3, 5); pigeonGfx.fillRect(24, 33, 3, 5);
+    pigeonGfx.generateTexture('enemy-pigeon', 40, 40);
+    pigeonGfx.destroy();
 
     // Tourist enemy (camera flash)
     const touristGfx = scene.make.graphics({ x: 0, y: 0, add: false });
@@ -593,31 +616,30 @@ export function createEnemySprites(scene) {
     touristGfx.generateTexture('enemy-tourist', 40, 40);
     touristGfx.destroy();
 
-    // Generic enemy - LoL caster minion style (purple robed, glowing eyes)
+    // Generic enemy - Rom bottle with a clear bottle silhouette and label
     const genericGfx = scene.make.graphics({ x: 0, y: 0, add: false });
-    // Robe/body (purple)
-    genericGfx.fillStyle(0x5533aa);
-    genericGfx.fillTriangle(10, 38, 20, 16, 30, 38); // robe body
-    genericGfx.fillStyle(0x442288);
-    genericGfx.fillTriangle(12, 38, 20, 20, 28, 38); // inner robe shade
-    // Hood
-    genericGfx.fillStyle(0x5533aa);
-    genericGfx.fillCircle(20, 12, 9);
-    genericGfx.fillStyle(0x331166);
-    genericGfx.fillCircle(20, 14, 7); // hood shadow/opening
-    // Glowing eyes
-    genericGfx.fillStyle(0xff4444);
-    genericGfx.fillRect(16, 12, 3, 3);
-    genericGfx.fillRect(22, 12, 3, 3);
-    // Eye glow
-    genericGfx.fillStyle(0xff8888);
-    genericGfx.fillRect(17, 13, 1, 1);
-    genericGfx.fillRect(23, 13, 1, 1);
-    // Staff
-    genericGfx.fillStyle(0x886622);
-    genericGfx.fillRect(30, 6, 2, 32);
-    genericGfx.fillStyle(0xaa44ff);
-    genericGfx.fillCircle(31, 6, 4); // orb on staff
+    genericGfx.fillStyle(0x5a2d18);
+    genericGfx.fillRect(14, 2, 12, 7);
+    genericGfx.fillStyle(0xc9a227);
+    genericGfx.fillRect(15, 0, 10, 3);
+    genericGfx.fillStyle(0x24140f);
+    genericGfx.fillRect(11, 8, 18, 8);
+    genericGfx.fillStyle(0x6e3518);
+    genericGfx.fillRoundedRect(7, 13, 26, 24, 5);
+    genericGfx.fillStyle(0x9a5526);
+    genericGfx.fillRect(9, 15, 22, 18);
+    genericGfx.fillStyle(0xffffff);
+    genericGfx.fillRect(9, 20, 22, 10);
+    genericGfx.fillStyle(0xc9a227);
+    genericGfx.fillRect(9, 20, 22, 2);
+    genericGfx.fillRect(9, 28, 22, 2);
+    genericGfx.fillStyle(0x3b1b12);
+    genericGfx.fillRect(13, 23, 14, 4);
+    genericGfx.fillStyle(0xffffff);
+    genericGfx.fillRect(15, 24, 10, 2);
+    genericGfx.fillStyle(0x333333);
+    genericGfx.fillRect(12, 35, 5, 3);
+    genericGfx.fillRect(23, 35, 5, 3);
     genericGfx.generateTexture('enemy-generic', 40, 40);
     genericGfx.destroy();
 
@@ -962,6 +984,21 @@ export function createItemSprites(scene) {
     pugGfx.fillCircle(34, 18, 3);
     pugGfx.generateTexture('dog-pug', 40, 40);
     pugGfx.destroy();
+
+    // Pokemon ball power-up
+    const pokemonBallGfx = scene.make.graphics({ x: 0, y: 0, add: false });
+    pokemonBallGfx.fillStyle(0xcc2222);
+    pokemonBallGfx.fillCircle(20, 20, 15);
+    pokemonBallGfx.fillStyle(0xffffff);
+    pokemonBallGfx.fillRect(5, 18, 30, 5);
+    pokemonBallGfx.fillCircle(20, 25, 10);
+    pokemonBallGfx.fillStyle(0x222222);
+    pokemonBallGfx.fillRect(5, 18, 30, 4);
+    pokemonBallGfx.fillCircle(20, 20, 6);
+    pokemonBallGfx.fillStyle(0xffffff);
+    pokemonBallGfx.fillCircle(20, 20, 3);
+    pokemonBallGfx.generateTexture('powerup-pokemon-ball', 40, 40);
+    pokemonBallGfx.destroy();
 }
 
 export function createTileSprites(scene) {

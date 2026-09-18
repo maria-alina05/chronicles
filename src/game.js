@@ -12,9 +12,10 @@ import { Level6Scene } from './scenes/Level6Scene.js';
 import { EndingScene } from './scenes/EndingScene.js';
 
 // Detect orientation and set game dimensions accordingly
+const isMobileViewport = window.innerWidth <= 768 || 'ontouchstart' in window;
 const isLandscape = window.innerWidth > window.innerHeight;
-const gameWidth = isLandscape ? 960 : 540;
-const gameHeight = isLandscape ? 540 : 960;
+const gameWidth = isMobileViewport ? 540 : (isLandscape ? 960 : 540);
+const gameHeight = isMobileViewport ? 960 : (isLandscape ? 540 : 960);
 
 const config = {
     type: Phaser.AUTO,
@@ -57,7 +58,8 @@ window.addEventListener('orientationchange', () => {
 });
 window.addEventListener('resize', () => {
     const nowLandscape = window.innerWidth > window.innerHeight;
-    if (nowLandscape !== isLandscape) {
+    const nowMobile = window.innerWidth <= 768 || 'ontouchstart' in window;
+    if (nowLandscape !== isLandscape || nowMobile !== isMobileViewport) {
         setTimeout(() => window.location.reload(), 200);
     }
 });

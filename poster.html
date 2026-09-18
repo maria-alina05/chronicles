@@ -6,15 +6,16 @@
     <title>The Chronicles of Zanuff & Marabeige - Poster</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
+        @page { size: A3 portrait; margin: 0; }
         @media print {
             body { margin: 0; padding: 0; background: none; }
-            .poster { box-shadow: none !important; border: none !important; }
+            .poster { box-shadow: none !important; border: 5px solid #2d1b69 !important; }
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            background: #0a0a12;
+            background: #e8e8e8;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -23,100 +24,128 @@
             padding: 20px;
         }
         
+        /* A3 portrait at 96dpi: 297mm x 420mm */
         .poster {
-            width: 794px;
-            height: 1123px;
-            background: linear-gradient(180deg, #0a0618 0%, #0f0c29 12%, #1a1040 35%, #1a0a30 65%, #0f0618 100%);
-            border: 5px solid #ffd700;
+            width: 1123px;
+            height: 1587px;
+            background:
+                radial-gradient(circle, rgba(45,27,105,0.05) 1.5px, transparent 1.5px) 0 0/22px 22px,
+                linear-gradient(180deg, #ffffff 0%, #fbfaff 50%, #ffffff 100%);
+            border: 6px solid #2d1b69;
             position: relative;
             overflow: hidden;
+            margin: 0 auto;
+            flex-shrink: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: space-between;
         }
         
-        .poster::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
-            pointer-events: none;
-            z-index: 100;
-        }
-        
-        .poster::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image: linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
-            background-size: 16px 16px;
-            pointer-events: none;
-        }
-        
-        .corner { position: absolute; width: 40px; height: 40px; border-color: #ffd700; z-index: 10; }
-        .corner-tl { top: 12px; left: 12px; border-top: 4px solid; border-left: 4px solid; }
-        .corner-tr { top: 12px; right: 12px; border-top: 4px solid; border-right: 4px solid; }
-        .corner-bl { bottom: 12px; left: 12px; border-bottom: 4px solid; border-left: 4px solid; }
-        .corner-br { bottom: 12px; right: 12px; border-bottom: 4px solid; border-right: 4px solid; }
-        
-        .stars { position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 0; }
-        .star { position: absolute; background: #ffffff; border-radius: 50%; }
+        .corner { position: absolute; width: 50px; height: 50px; border-color: #b8860b; z-index: 10; }
+        .corner-tl { top: 16px; left: 16px; border-top: 5px solid; border-left: 5px solid; }
+        .corner-tr { top: 16px; right: 16px; border-top: 5px solid; border-right: 5px solid; }
+        .corner-bl { bottom: 16px; left: 16px; border-bottom: 5px solid; border-left: 5px solid; }
+        .corner-br { bottom: 16px; right: 16px; border-bottom: 5px solid; border-right: 5px solid; }
         
         .glow-strip-left, .glow-strip-right {
-            position: absolute; top: 0; bottom: 0; width: 3px; opacity: 0.5; z-index: 5;
+            position: absolute; top: 0; bottom: 0; width: 6px; opacity: 0.85; z-index: 5;
         }
-        .glow-strip-left { left: 0; background: linear-gradient(180deg, transparent, #6688ff, #e94560, #44ffaa, transparent); }
-        .glow-strip-right { right: 0; background: linear-gradient(180deg, transparent, #44ffaa, #e94560, #6688ff, transparent); }
+        .glow-strip-left { left: 0; background: linear-gradient(180deg, transparent, #2952cc, #c81e45, #0d7a4f, transparent); }
+        .glow-strip-right { right: 0; background: linear-gradient(180deg, transparent, #0d7a4f, #c81e45, #2952cc, transparent); }
         
         /* Header */
         .arcade-top {
             width: 100%;
-            padding: 20px 40px 8px;
+            padding: 20px 60px 4px;
             text-align: center;
             position: relative;
             z-index: 5;
         }
-        .insert-coin { font-size: 10px; color: #44ffaa; letter-spacing: 4px; margin-bottom: 10px; opacity: 0.8; }
-        .title { font-size: 24px; color: #ffd700; text-shadow: 0 0 20px rgba(255,215,0,0.6), 0 3px 0 #aa8800; line-height: 1.8; margin-bottom: 6px; }
-        .subtitle { font-size: 14px; color: #e94560; letter-spacing: 3px; text-shadow: 0 0 12px rgba(233,69,96,0.5); }
+        .insert-coin { font-size: 18px; color: #0d7a4f; letter-spacing: 5px; margin-bottom: 16px; }
+        .title { font-size: 36px; color: #ffd700; -webkit-text-stroke: 2px #2d1b69; text-shadow: 4px 4px 0 #2d1b69; line-height: 1.45; margin-bottom: 4px; }
+        .subtitle { display: none; }
+        .subtitle::after { content: '\2666 \2666 \2666'; display: block; color: #d9c98a; font-size: 12px; letter-spacing: 10px; margin-top: 8px; }
+        .wedding-line { font-size: 17px; color: #0d7a4f; letter-spacing: 2px; margin-top: 4px; }
         
         /* Characters hero section */
         .characters-section {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 24px;
-            padding: 10px 40px;
+            gap: 70px;
+            margin: 8px 60px 18px;
+            padding: 4px 24px;
+            background: transparent;
+            border: 0;
+            border-radius: 0;
             position: relative;
             z-index: 5;
         }
-        .character-card { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-        .character-sprite { image-rendering: pixelated; width: 80px; height: 120px; filter: drop-shadow(0 0 10px rgba(102,136,255,0.5)); }
-        .character-sprite.mara { filter: drop-shadow(0 0 10px rgba(255,102,136,0.5)); }
-        .char-name { font-size: 13px; color: #6688ff; text-shadow: 0 0 8px rgba(102,136,255,0.4); }
-        .char-name.mara { color: #ff6688; text-shadow: 0 0 8px rgba(255,102,136,0.4); }
-        .char-role { font-size: 9px; color: #888; }
-        .char-stats { font-size: 8px; color: #44ffaa; margin-top: 2px; }
-        .char-abilities { font-size: 8px; color: #888; margin-top: 2px; max-width: 160px; text-align: center; line-height: 1.6; }
+        .character-card {
+            display: flex; flex-direction: column; align-items: center; gap: 7px;
+            background: transparent;
+            border-radius: 0;
+            padding: 10px 16px 10px;
+            min-height: 250px;
+            justify-content: flex-start;
+            flex: 1;
+        }
+        .character-card.zanuff { border: 0; box-shadow: none; }
+        .character-card.mara { border: 0; box-shadow: none; }
+        .character-sprite { image-rendering: pixelated; width: 112px; height: 168px; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.35)); }
+        .char-name { font-size: 24px; color: #1e3a8a; }
+        .char-name.mara { color: #9d174d; }
+        .char-title { font-size: 14px; color: #555; letter-spacing: 1px; text-align: center; line-height: 1.4; }
+        .char-role { font-size: 20px; color: #444; }
+        .char-stats { font-size: 18px; color: #0d7a4f; margin-top: 3px; text-align: center; max-width: 240px; line-height: 1.35; }
+        .char-abilities { font-size: 18px; color: #444; margin-top: 3px; max-width: 240px; text-align: center; line-height: 1.6; }
         
-        .heart-area { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-        .heart-big { font-size: 32px; color: #e94560; text-shadow: 0 0 20px rgba(233,69,96,0.6); }
-        .vs-text { font-size: 9px; color: #ffd700; letter-spacing: 2px; }
+        .heart-area { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .heart-badge {
+            width: 66px; height: 66px; border-radius: 50%;
+            background: #ffffff; border: 3px solid #b8860b;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 3px 0 #e8d9a8;
+        }
+        .heart-big { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; font-size: 30px; color: #c81e45; line-height: 1; transform: translateY(-2px); }
+        .vs-text { font-size: 18px; color: #b8860b; letter-spacing: 2px; }
+        .enemy-popup {
+            position: absolute;
+            width: 58px;
+            height: 58px;
+            image-rendering: auto;
+            opacity: 0.86;
+            filter: drop-shadow(0 3px 3px rgba(0,0,0,0.25));
+            pointer-events: none;
+        }
+        .enemy-popup.doubt { left: 0%; top: 24%; transform: rotate(-9deg); }
+        .enemy-popup.skull { right: 0%; top: 30%; transform: rotate(8deg); }
+        .enemy-popup.melon { left: -2%; bottom: 0%; transform: rotate(7deg); }
+        .enemy-popup.pigeon { right: -2%; bottom: 0%; transform: rotate(-8deg); }
+        .enemy-popup.rom { left: 2%; top: 24%; transform: rotate(-12deg); }
+        .enemy-popup.teams { right: 2%; top: 31%; transform: rotate(11deg); }
+        .poster > .enemy-popup { z-index: 20; }
         
         /* Showcase section */
         .showcase-section {
-            width: 90%;
-            padding: 6px 0;
+            width: auto;
+            margin: 0 90px 18px;
+            padding: 18px 28px 16px;
+            background: transparent;
+            border: 0;
+            border-top: 2px solid #ecdca6;
+            border-bottom: 2px solid #ecdca6;
             position: relative;
             z-index: 5;
         }
-        .showcase-title { font-size: 12px; color: #ffd700; text-align: center; margin-bottom: 6px; letter-spacing: 2px; }
+        .showcase-title { font-size: 22px; color: #a67c00; text-align: center; margin-bottom: 8px; letter-spacing: 2px; }
         
         .showcase-row {
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            gap: 14px;
+            gap: 18px;
             margin-bottom: 10px;
             flex-wrap: wrap;
         }
@@ -125,73 +154,126 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 3px;
+            gap: 5px;
         }
         .showcase-item canvas {
-            image-rendering: pixelated;
-            border: 2px solid rgba(255,215,0,0.3);
-            border-radius: 6px;
-            background: rgba(0,0,0,0.5);
-            width: 48px;
-            height: 48px;
+            image-rendering: auto;
+            width: 60px;
+            height: 60px;
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
         }
         .showcase-item .item-label {
-            font-size: 8px;
-            color: #aaa;
+            font-size: 21px;
+            color: #333;
             text-align: center;
-            max-width: 55px;
+            max-width: 80px;
         }
-        .showcase-item.enemy canvas { border-color: rgba(233,69,96,0.4); }
-        .showcase-item.powerup canvas { border-color: rgba(68,255,170,0.4); }
+        .showcase-item.optional { display: none; }
         
         .showcase-subtitle {
-            font-size: 9px;
-            color: #888;
+            font-size: 22px;
+            color: #555;
             text-align: center;
-            margin-bottom: 6px;
+            margin-bottom: 10px;
             letter-spacing: 1px;
         }
+        .showcase-section .showcase-subtitle,
+        .showcase-section .showcase-row:last-child { display: none; }
         
         /* Divider */
-        .divider { width: 85%; height: 2px; background: linear-gradient(90deg, transparent, #ffd700, transparent); margin: 4px 0; position: relative; z-index: 5; }
-        .divider::before { content: '\2666'; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); color: #ffd700; font-size: 10px; background: #1a1040; padding: 0 8px; }
+        .divider { display: none; }
         
         /* Levels */
-        .levels-section { width: 85%; padding: 4px 0; position: relative; z-index: 5; }
-        .levels-title { font-size: 14px; color: #44ffaa; text-align: center; margin-bottom: 6px; letter-spacing: 2px; text-shadow: 0 0 10px rgba(68,255,170,0.3); }
-        .levels-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-        .level-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,215,0,0.2); border-radius: 4px; padding: 6px 8px; text-align: center; }
-        .level-card .level-num { font-size: 10px; color: #ffd700; margin-bottom: 2px; }
-        .level-card .level-name { font-size: 11px; color: #ffffff; margin-bottom: 2px; }
-        .level-card .level-date { font-size: 9px; color: #666; }
-        .level-card.boss { grid-column: 1 / -1; background: rgba(233,69,96,0.08); border-color: rgba(233,69,96,0.4); }
+        .levels-section {
+            width: auto;
+            margin: 14px 60px 14px;
+            padding: 12px 24px 14px;
+            background: #f2fbf6;
+            border: 2px solid #bfe6d2;
+            border-radius: 10px;
+            position: relative;
+            z-index: 5;
+        }
+        .levels-title { font-size: 24px; color: #0d7a4f; text-align: center; margin-bottom: 8px; letter-spacing: 2px; }
+        .levels-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 14px; }
+        .level-card { background: #ffffff; border: 0; border-top: 4px solid #b8860b; border-radius: 10px; padding: 24px 24px; text-align: center; }
+        .level-card:nth-child(even) { transform: translateY(8px); }
+        .level-card .level-num { font-size: 18px; color: #a67c00; margin-bottom: 10px; line-height: 1.25; }
+        .level-card .level-name { font-size: 22px; color: #1a1040; margin-bottom: 10px; line-height: 1.35; }
+        .level-card .level-date { font-size: 18px; color: #555; line-height: 1.4; }
+        .level-card.boss { grid-column: 1 / -1; background: #fdeef1; border-color: #c81e45; }
+        .level-loot {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 26px;
+            padding: 4px 0;
+        }
+        .powerups-section {
+            width: auto;
+            margin: 18px 90px 14px;
+            padding: 16px 28px 18px;
+            background: #fffaf0;
+            border: 2px solid #ecdca6;
+            border-radius: 12px;
+            position: relative;
+            z-index: 5;
+        }
+        .powerups-title {
+            font-size: 22px;
+            color: #a67c00;
+            text-align: center;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        .loot-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            color: #333;
+            font-size: 21px;
+            text-align: center;
+        }
+        .loot-item canvas {
+            width: 50px;
+            height: 50px;
+            image-rendering: auto;
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
+        }
+        .render-cache { display: none; }
         
 
         /* Tagline */
-        .tagline { font-size: 14px; color: #ffffff; text-align: center; padding: 6px 40px; line-height: 2; position: relative; z-index: 5; }
-        .tagline em { color: #e94560; font-style: normal; text-shadow: 0 0 10px rgba(233,69,96,0.4); }
+        .tagline { font-size: 28px; color: #222222; text-align: center; padding: 10px 60px; line-height: 2.1; position: relative; z-index: 5; }
+        .tagline em { color: #c81e45; font-style: normal; }
         
-        /* Dogs */
         /* QR section */
         .qr-section {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
-            padding: 8px 40px 8px;
-            margin-top: auto;
+            gap: 4px;
+            margin: 0 90px 8px;
+            padding: 8px 32px 14px;
+            background: transparent;
+            border: 0;
+            border-top: 2px solid #ded9f7;
+            border-bottom: 2px solid #ded9f7;
+            border-radius: 0;
+            margin-top: 0;
             position: relative;
             z-index: 5;
         }
-        .qr-code { background: #ffffff; padding: 12px; border-radius: 4px; }
-        .qr-code img { display: block; width: 160px; height: 160px; }
-        .qr-info { display: flex; flex-direction: column; align-items: center; gap: 5px; }
-        .qr-info .qr-label { font-size: 14px; color: #44ffaa; text-shadow: 0 0 10px rgba(68,255,170,0.4); }
-        .qr-info .qr-url { font-size: 10px; color: #aaa; word-break: break-all; }
-        .qr-info .qr-hint { font-size: 9px; color: #888; }
+        .qr-code { background: #ffffff; padding: 8px; border-radius: 10px; border: 3px solid #2d1b69; box-shadow: 0 3px 0 #ccc4f0; }
+        .qr-code img { display: block; width: 120px; height: 120px; }
+        .qr-info { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .qr-info .qr-label { font-size: 25px; color: #0d7a4f; }
+        .qr-info .qr-url { font-size: 21px; color: #555; word-break: break-all; }
+        .qr-info .qr-hint { font-size: 18px; color: #555; }
         
         /* Footer */
-        .footer { font-size: 7px; color: #444; padding: 4px 40px 10px; text-align: center; position: relative; z-index: 5; }
+        .footer { font-size: 18px; color: #555; padding: 2px 60px 20px; text-align: center; position: relative; z-index: 5; }
     </style>
 </head>
 <body>
@@ -202,68 +284,53 @@
         <div class="corner corner-br"></div>
         <div class="glow-strip-left"></div>
         <div class="glow-strip-right"></div>
-        <div class="stars" id="stars"></div>
+        <canvas id="popup-rom" class="enemy-popup rom" width="96" height="96"></canvas>
+        <canvas id="popup-teams" class="enemy-popup teams" width="96" height="96"></canvas>
         
         <!-- Header -->
         <div class="arcade-top">
-            <div class="insert-coin">INSERT COIN TO START</div>
             <div class="title">The Chronicles of<br>Zanuff & Marabeige</div>
-            <div class="subtitle">"Mad About You"</div>
+            <div class="wedding-line">CO-OP MODE: FOREVER &nbsp; &bull; &nbsp; 27 SEPTEMBER 2026</div>
         </div>
         
         <!-- Characters -->
         <div class="characters-section">
-            <div class="character-card">
+            <canvas id="popup-doubt" class="enemy-popup doubt" width="96" height="96"></canvas>
+            <canvas id="popup-skull" class="enemy-popup skull" width="96" height="96"></canvas>
+            <canvas id="popup-melon" class="enemy-popup melon" width="96" height="96"></canvas>
+            <canvas id="popup-pigeon" class="enemy-popup pigeon" width="96" height="96"></canvas>
+            <div class="character-card zanuff">
                 <canvas id="zanuff-sprite" class="character-sprite" width="48" height="72"></canvas>
                 <div class="char-name">ZANUFF</div>
-                <div class="char-role">The Gamer</div>
-                <div class="char-stats">7 HP / Taric Dazzle</div>
-                <div class="char-abilities">Starlight / Shield / Cheese / Ice Cream</div>
+                <div class="char-title">The Crafting<br>Bard</div>
             </div>
             <div class="heart-area">
-                <div class="heart-big">&hearts;</div>
-                <div class="vs-text">SURVIVE</div>
+                <div class="heart-badge"><div class="heart-big">&hearts;</div></div>
+                <div class="vs-text">CO-OP</div>
             </div>
-            <div class="character-card">
+            <div class="character-card mara">
                 <canvas id="marabeige-sprite" class="character-sprite mara" width="48" height="72"></canvas>
                 <div class="char-name mara">MARABEIGE</div>
-                <div class="char-role">The Home Cook</div>
-                <div class="char-stats">5 HP / Sweet Bolts</div>
-                <div class="char-abilities">Lidl Bags / Cooking Fire</div>
+                <div class="char-title">The Nonchalant<br>Damsel</div>
             </div>
         </div>
         
-        <!-- Showcase: Power-ups -->
-        <div class="showcase-section">
-            <div class="showcase-title">- POWER-UPS & WEAPONS -</div>
-            <div class="showcase-row">
-                <div class="showcase-item powerup"><canvas id="ico-dazzle" width="32" height="32"></canvas><div class="item-label">Dazzle</div></div>
-                <div class="showcase-item powerup"><canvas id="ico-shield" width="32" height="32"></canvas><div class="item-label">Shield</div></div>
-                <div class="showcase-item powerup"><canvas id="ico-cheese" width="32" height="32"></canvas><div class="item-label">Cheese</div></div>
-                <div class="showcase-item powerup"><canvas id="ico-bolts" width="32" height="32"></canvas><div class="item-label">Bolts</div></div>
-                <div class="showcase-item powerup"><canvas id="ico-lidl" width="32" height="32"></canvas><div class="item-label">Lidl Bag</div></div>
-                <div class="showcase-item powerup"><canvas id="ico-fire" width="32" height="32"></canvas><div class="item-label">Fire</div></div>
-                <div class="showcase-item powerup"><canvas id="ico-heal" width="32" height="32"></canvas><div class="item-label">Heal</div></div>
-                <div class="showcase-item powerup"><canvas id="ico-speed" width="32" height="32"></canvas><div class="item-label">Speed</div></div>
-                <div class="showcase-item powerup"><canvas id="ico-xp" width="32" height="32"></canvas><div class="item-label">XP Gem</div></div>
-            </div>
-            
-            <div class="showcase-subtitle">ENEMIES</div>
-            <div class="showcase-row">
-                <div class="showcase-item enemy"><canvas id="ico-melon" width="32" height="32"></canvas><div class="item-label">Melon</div></div>
-                <div class="showcase-item enemy"><canvas id="ico-flower" width="32" height="32"></canvas><div class="item-label">Flower</div></div>
-                <div class="showcase-item enemy"><canvas id="ico-generic" width="32" height="32"></canvas><div class="item-label">Minion</div></div>
-                <div class="showcase-item enemy"><canvas id="ico-doubt" width="32" height="32"></canvas><div class="item-label">Doubt</div></div>
-                <div class="showcase-item enemy"><canvas id="ico-butterfly" width="32" height="32"></canvas><div class="item-label">Butterfly</div></div>
-                <div class="showcase-item enemy"><canvas id="ico-skull" width="32" height="32"></canvas><div class="item-label">Skull</div></div>
+        <!-- Power-ups -->
+        <div class="powerups-section">
+            <div class="powerups-title">- POWER-UPS -</div>
+            <div class="level-loot">
+                <div class="loot-item"><canvas id="ico-dazzle" width="96" height="96"></canvas><span>Dazzle</span></div>
+                <div class="loot-item"><canvas id="ico-shield" width="96" height="96"></canvas><span>Shield</span></div>
+                <div class="loot-item"><canvas id="ico-cheese" width="96" height="96"></canvas><span>Cheese</span></div>
+                <div class="loot-item"><canvas id="ico-lidl" width="96" height="96"></canvas><span>Lidl Bag</span></div>
+                <div class="loot-item"><canvas id="ico-pug" width="96" height="96"></canvas><span>Pug</span></div>
+                <div class="loot-item"><canvas id="ico-pokemon" width="96" height="96"></canvas><span>Pokeball</span></div>
             </div>
         </div>
-        
-        <div class="divider"></div>
-        
+
         <!-- Levels -->
         <div class="levels-section">
-            <div class="levels-title">- OUR STORY IN LEVELS -</div>
+            <div class="levels-title">- OUR LOVE STORY IN LEVELS -</div>
             <div class="levels-grid">
                 <div class="level-card">
                     <div class="level-num">LEVEL 1</div>
@@ -296,11 +363,23 @@
                     <div class="level-date">August 2026</div>
                 </div>
                 <div class="level-card boss">
-                    <div class="level-num">FINAL BOSS</div>
+                    <div class="level-num">LEVEL COMPLETE</div>
                     <div class="level-name">The Grand Celebration</div>
                     <div class="level-date">September 27, 2026</div>
                 </div>
             </div>
+        </div>
+        <div class="render-cache" aria-hidden="true">
+            <canvas id="ico-bolts" width="32" height="32"></canvas>
+            <canvas id="ico-heal" width="32" height="32"></canvas>
+            <canvas id="ico-speed" width="32" height="32"></canvas>
+            <canvas id="ico-melon" width="32" height="32"></canvas>
+            <canvas id="ico-flower" width="32" height="32"></canvas>
+            <canvas id="ico-generic" width="32" height="32"></canvas>
+            <canvas id="ico-teams" width="32" height="32"></canvas>
+            <canvas id="ico-doubt" width="32" height="32"></canvas>
+            <canvas id="ico-pigeon" width="32" height="32"></canvas>
+            <canvas id="ico-skull" width="32" height="32"></canvas>
         </div>
         
         <div class="divider"></div>
@@ -308,18 +387,14 @@
         <!-- QR Section -->
         <div class="qr-section">
             <div class="qr-info">
-                <div class="qr-label">SCAN TO PLAY</div>
+                <div class="qr-label">SCAN TO PLAY OUR STORY</div>
             </div>
             <div class="qr-code">
                 <img id="qr-img" src="data:image/png;base64,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" alt="QR Code">
             </div>
             <div class="qr-info">
-                <div class="qr-url">maria-alina05.github.io/chronicles</div>
-                <div class="qr-hint">Works on any phone - no install needed</div>
             </div>
         </div>
-        
-        <div class="footer">Made with &hearts; by Andrei & Maria - 2025-2026 - Phaser 3 / JavaScript</div>
     </div>
 
     <script>
@@ -399,14 +474,23 @@
         
         function drawMarabeige(ctx) {
             ctx.imageSmoothingEnabled = false;
-            ctx.fillStyle = '#e94560';
+            ctx.fillStyle = '#ff8fc7';
             ctx.fillRect(15, 32, 18, 18);
-            ctx.fillStyle = '#c73550';
+            ctx.fillRect(10, 33, 5, 8); ctx.fillRect(33, 33, 5, 8);
+            ctx.fillStyle = '#d9509a';
             ctx.fillRect(19, 32, 10, 3); ctx.fillRect(13, 48, 22, 8);
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(21, 34, 2, 3); ctx.fillRect(25, 34, 2, 3);
+            ctx.fillStyle = '#d9509a';
+            ctx.fillRect(23, 35, 2, 2);
+            ctx.fillStyle = '#ff8fc7';
+            ctx.fillRect(13, 54, 4, 2); ctx.fillRect(19, 54, 4, 2); ctx.fillRect(25, 54, 4, 2); ctx.fillRect(31, 54, 4, 2);
             ctx.fillStyle = '#ffdab9';
             ctx.fillRect(16, 56, 6, 12); ctx.fillRect(26, 56, 6, 12);
-            ctx.fillStyle = '#cc3366';
+            ctx.fillStyle = '#d9509a';
             ctx.fillRect(15, 68, 8, 4); ctx.fillRect(25, 68, 8, 4);
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(18, 69, 2, 1); ctx.fillRect(28, 69, 2, 1);
             ctx.fillStyle = '#ffdab9';
             ctx.fillRect(14, 6, 20, 24);
             ctx.fillStyle = '#b8934a';
@@ -482,15 +566,35 @@
             ctx.fillRect(10, 18, 12, 4);
         }
         
-        function drawFire(ctx) {
-            ctx.fillStyle = '#ff6600';
-            ctx.fillRect(12, 4, 8, 20); ctx.fillRect(10, 8, 12, 14); ctx.fillRect(8, 12, 16, 8);
-            ctx.fillStyle = '#ffdd00';
-            ctx.fillRect(14, 8, 4, 12); ctx.fillRect(12, 12, 8, 6);
-            ctx.fillStyle = '#ff0000';
-            ctx.fillRect(10, 22, 12, 6); ctx.fillRect(8, 20, 16, 4);
+        function drawPug(ctx) {
+            ctx.fillStyle = '#e8c89c';
+            ctx.fillRect(8, 16, 20, 12);
+            ctx.fillStyle = '#d4b08c';
+            ctx.fillRect(11, 7, 10, 15);
+            ctx.fillStyle = '#6b4914';
+            ctx.fillRect(9, 8, 5, 9); ctx.fillRect(20, 8, 5, 9);
+            ctx.fillRect(14, 13, 12, 7);
+            ctx.fillStyle = '#222222';
+            ctx.fillRect(14, 10, 4, 4); ctx.fillRect(21, 10, 4, 4);
+            ctx.fillStyle = '#8b5e2b';
+            ctx.fillRect(17, 15, 6, 4);
+            ctx.fillStyle = '#d4b08c';
+            ctx.fillRect(10, 27, 5, 5); ctx.fillRect(22, 27, 5, 5);
+            ctx.fillStyle = '#e8c89c';
+            ctx.fillRect(27, 17, 4, 4);
+        }
+
+        function drawPokemonBall(ctx) {
+            ctx.fillStyle = '#cc2222';
+            ctx.beginPath(); ctx.arc(16, 16, 12, Math.PI, 0); ctx.fill();
             ctx.fillStyle = '#ffffff';
-            ctx.fillRect(15, 12, 2, 4);
+            ctx.beginPath(); ctx.arc(16, 16, 12, 0, Math.PI); ctx.fill();
+            ctx.fillStyle = '#222222';
+            ctx.fillRect(4, 15, 24, 3);
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath(); ctx.arc(16, 16, 5, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#222222';
+            ctx.beginPath(); ctx.arc(16, 16, 2, 0, Math.PI * 2); ctx.fill();
         }
         
         function drawHeal(ctx) {
@@ -508,17 +612,6 @@
             ctx.fillStyle = '#88ffcc';
             ctx.fillRect(7, 8, 2, 4); ctx.fillRect(13, 10, 2, 4); ctx.fillRect(19, 6, 2, 4);
             ctx.fillRect(24, 12, 4, 2); ctx.fillRect(24, 16, 4, 2); ctx.fillRect(24, 20, 4, 2);
-        }
-        
-        function drawXpGem(ctx) {
-            ctx.fillStyle = '#44ff88';
-            ctx.beginPath();
-            ctx.moveTo(16, 2); ctx.lineTo(28, 14); ctx.lineTo(16, 30); ctx.lineTo(4, 14);
-            ctx.closePath(); ctx.fill();
-            ctx.fillStyle = '#88ffaa';
-            ctx.fillRect(14, 10, 4, 10);
-            ctx.fillStyle = '#ffffff';
-            ctx.fillRect(14, 10, 2, 4);
         }
         
         // ===== ENEMY ICONS (32x32 canvases, displayed at 48x48) =====
@@ -547,14 +640,24 @@
         }
         
         function drawGenericEnemy(ctx) {
-            ctx.fillStyle = '#5533aa';
-            ctx.fillRect(10, 6, 12, 20); ctx.fillRect(8, 10, 16, 14);
-            ctx.fillStyle = '#7744cc';
-            ctx.fillRect(12, 4, 8, 6);
-            ctx.fillStyle = '#ff4444';
-            ctx.fillRect(10, 12, 4, 4); ctx.fillRect(18, 12, 4, 4);
+            ctx.fillStyle = '#5a2d18';
+            ctx.fillRect(12, 2, 8, 5);
+            ctx.fillStyle = '#c9a227';
+            ctx.fillRect(13, 0, 6, 2);
+            ctx.fillStyle = '#24140f';
+            ctx.fillRect(9, 7, 14, 6);
+            ctx.fillStyle = '#6e3518';
+            ctx.fillRect(5, 12, 22, 18);
+            ctx.fillStyle = '#9a5526';
+            ctx.fillRect(7, 14, 18, 14);
             ctx.fillStyle = '#ffffff';
-            ctx.fillRect(11, 13, 2, 2); ctx.fillRect(19, 13, 2, 2);
+            ctx.fillRect(7, 19, 18, 8);
+            ctx.fillStyle = '#c9a227';
+            ctx.fillRect(7, 19, 18, 2); ctx.fillRect(7, 25, 18, 2);
+            ctx.fillStyle = '#3b1b12';
+            ctx.fillRect(10, 22, 12, 3);
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(12, 23, 8, 1);
         }
         
         function drawDoubtEnemy(ctx) {
@@ -570,17 +673,32 @@
             ctx.fillRect(14, 4, 4, 4);
         }
         
-        function drawButterflyEnemy(ctx) {
-            ctx.fillStyle = '#ff88cc';
-            ctx.beginPath(); ctx.arc(9, 12, 7, 0, Math.PI * 2); ctx.fill();
-            ctx.beginPath(); ctx.arc(23, 12, 7, 0, Math.PI * 2); ctx.fill();
-            ctx.fillStyle = '#ff55aa';
-            ctx.beginPath(); ctx.arc(9, 20, 5, 0, Math.PI * 2); ctx.fill();
-            ctx.beginPath(); ctx.arc(23, 20, 5, 0, Math.PI * 2); ctx.fill();
-            ctx.fillStyle = '#333';
-            ctx.fillRect(15, 6, 2, 22);
-            ctx.fillStyle = '#ffcc00';
-            ctx.fillRect(14, 4, 4, 2);
+        function drawPigeonEnemy(ctx) {
+            ctx.fillStyle = '#9aa0aa';
+            ctx.beginPath(); ctx.ellipse(16, 22, 11, 7, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#c6ccd4';
+            ctx.beginPath(); ctx.arc(16, 10, 7, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#555b66';
+            ctx.beginPath(); ctx.moveTo(11, 17); ctx.lineTo(3, 25); ctx.lineTo(14, 26); ctx.fill();
+            ctx.beginPath(); ctx.moveTo(21, 17); ctx.lineTo(29, 25); ctx.lineTo(18, 26); ctx.fill();
+            ctx.fillStyle = '#222';
+            ctx.fillRect(18, 8, 2, 2);
+            ctx.fillStyle = '#d99a3d';
+            ctx.fillRect(22, 10, 7, 3);
+            ctx.fillStyle = '#d7a64a';
+            ctx.fillRect(11, 28, 2, 4); ctx.fillRect(20, 28, 2, 4);
+        }
+
+        function drawTeamsEnemy(ctx) {
+            ctx.fillStyle = '#5b5fc7';
+            ctx.fillRect(4, 4, 24, 24);
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(9, 10, 14, 3);
+            ctx.fillRect(14, 10, 4, 15);
+            ctx.fillStyle = '#ff0000';
+            ctx.beginPath(); ctx.arc(27, 7, 5, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(26, 5, 2, 4);
         }
         
         function drawSkullEnemy(ctx) {
@@ -597,35 +715,39 @@
         // ===== RENDER EVERYTHING =====
         drawZanuff(document.getElementById('zanuff-sprite').getContext('2d'));
         drawMarabeige(document.getElementById('marabeige-sprite').getContext('2d'));
-        
-        drawDazzle(document.getElementById('ico-dazzle').getContext('2d'));
-        drawShield(document.getElementById('ico-shield').getContext('2d'));
-        drawCheese(document.getElementById('ico-cheese').getContext('2d'));
-        drawBolts(document.getElementById('ico-bolts').getContext('2d'));
-        drawLidl(document.getElementById('ico-lidl').getContext('2d'));
-        drawFire(document.getElementById('ico-fire').getContext('2d'));
-        drawHeal(document.getElementById('ico-heal').getContext('2d'));
-        drawSpeed(document.getElementById('ico-speed').getContext('2d'));
-        drawXpGem(document.getElementById('ico-xp').getContext('2d'));
-        
-        drawMelonEnemy(document.getElementById('ico-melon').getContext('2d'));
-        drawFlowerEnemy(document.getElementById('ico-flower').getContext('2d'));
-        drawGenericEnemy(document.getElementById('ico-generic').getContext('2d'));
-        drawDoubtEnemy(document.getElementById('ico-doubt').getContext('2d'));
-        drawButterflyEnemy(document.getElementById('ico-butterfly').getContext('2d'));
-        drawSkullEnemy(document.getElementById('ico-skull').getContext('2d'));
-        
-        // Stars
-        const starsContainer = document.getElementById('stars');
-        for (let i = 0; i < 80; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            star.style.left = Math.random() * 100 + '%';
-            star.style.top = Math.random() * 100 + '%';
-            star.style.width = star.style.height = (Math.random() * 2 + 1) + 'px';
-            star.style.opacity = Math.random() * 0.4 + 0.1;
-            starsContainer.appendChild(star);
+
+        function drawHiResIcon(id, draw) {
+            const canvas = document.getElementById(id);
+            const ctx = canvas.getContext('2d');
+            ctx.imageSmoothingEnabled = false;
+            ctx.scale(canvas.width / 32, canvas.height / 32);
+            draw(ctx);
         }
+        
+        drawHiResIcon('ico-dazzle', drawDazzle);
+        drawHiResIcon('ico-shield', drawShield);
+        drawHiResIcon('ico-cheese', drawCheese);
+        drawHiResIcon('ico-bolts', drawBolts);
+        drawHiResIcon('ico-lidl', drawLidl);
+        drawHiResIcon('ico-pug', drawPug);
+        drawHiResIcon('ico-heal', drawHeal);
+        drawHiResIcon('ico-speed', drawSpeed);
+        drawHiResIcon('ico-pokemon', drawPokemonBall);
+        
+        drawHiResIcon('ico-melon', drawMelonEnemy);
+        drawHiResIcon('ico-flower', drawFlowerEnemy);
+        drawHiResIcon('ico-generic', drawGenericEnemy);
+        drawHiResIcon('ico-teams', drawTeamsEnemy);
+        drawHiResIcon('ico-doubt', drawDoubtEnemy);
+        drawHiResIcon('ico-pigeon', drawPigeonEnemy);
+        drawHiResIcon('ico-skull', drawSkullEnemy);
+
+        drawHiResIcon('popup-doubt', drawDoubtEnemy);
+        drawHiResIcon('popup-skull', drawSkullEnemy);
+        drawHiResIcon('popup-melon', drawMelonEnemy);
+        drawHiResIcon('popup-pigeon', drawPigeonEnemy);
+        drawHiResIcon('popup-rom', drawGenericEnemy);
+        drawHiResIcon('popup-teams', drawTeamsEnemy);
     </script>
 </body>
 </html>

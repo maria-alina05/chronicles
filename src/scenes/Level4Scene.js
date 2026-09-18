@@ -6,7 +6,7 @@ export class Level4Scene extends BaseLevel {
     }
 
     getEnemyTypes() {
-        return ['ring', 'ring', 'butterfly', 'doubt'];
+        return ['ring', 'ring', 'pigeon', 'doubt'];
     }
 
     createBackground() {
@@ -83,8 +83,8 @@ export class Level4Scene extends BaseLevel {
     getLevelDialogs() {
         return [
             { speaker: 'zanuff', text: "One year since we found each other..." },
-            { speaker: 'marabeige', text: "Why are there so many butterflies??" },
-            { speaker: 'zanuff', text: "Those are MY butterflies. Nervous ones." },
+            { speaker: 'marabeige', text: "Why are there so many pigeons??" },
+            { speaker: 'zanuff', text: "Those are MY pigeons. Nervous ones." },
             { speaker: 'marabeige', text: "Is that a Pokemon ball?!" },
             { speaker: 'zanuff', text: "I choose you. Forever." }
         ];

@@ -81,8 +81,8 @@ async function main() {
         // === POSTER PNG (high resolution for A3 print) ===
         console.log('Capturing poster as PNG...');
         const posterPage = await browser.newPage();
-        // A3 at 150 DPI = 1754x2480. We use the poster's CSS size with 3x scale
-        await posterPage.setViewport({ width: 834, height: 1163, deviceScaleFactor: 3 });
+        // Poster CSS size is 1123x1587 (A3 @96dpi) + padding, captured at 3x scale (~300dpi)
+        await posterPage.setViewport({ width: 1163, height: 1627, deviceScaleFactor: 3 });
         await posterPage.goto(`http://localhost:${PORT}/poster.html`, { waitUntil: 'networkidle0', timeout: 30000 });
         await sleep(5000); // Wait for fonts and canvas drawings
         
