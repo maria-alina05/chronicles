@@ -63,7 +63,7 @@ export class Level4Scene extends BaseLevel {
         pika.fillCircle(width - 64, height - 57, 2);
         pika.fillCircle(width - 56, height - 57, 2);
         this.add.text(width - 60, height - 78, 'Pika!', {
-            fontFamily: '"Press Start 2P"', fontSize: '6px', color: '#ffdd00'
+            fontFamily: '"Press Start 2P"', fontSize: '9px', color: '#ffdd00'
         }).setOrigin(0.5).setAlpha(0.5);
         
         // Pokemon Ball at the end - proposal!

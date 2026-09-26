@@ -34,13 +34,13 @@ export class EndingScene extends Phaser.Scene {
         
         this.add.text(width / 2, 40, ending.date, {
             fontFamily: '"Press Start 2P"',
-            fontSize: '10px',
+            fontSize: '13px',
             color: '#ffd700'
         }).setOrigin(0.5);
 
         this.add.text(width / 2, 65, ending.title, {
             fontFamily: '"Press Start 2P"',
-            fontSize: '20px',
+            fontSize: '24px',
             color: '#e94560'
         }).setOrigin(0.5);
 
@@ -85,16 +85,19 @@ export class EndingScene extends Phaser.Scene {
 
         // Scrolling story text
         const lines = ending.lines;
+        const wrapW = Math.min(width - 60, 480);
+        const lineGap = 12;
         let currentY = 310;
-        
+
         lines.forEach((line, i) => {
-            const text = this.add.text(width / 2, currentY + i * 35, line, {
+            const text = this.add.text(width / 2, currentY, line, {
                 fontFamily: '"Press Start 2P"',
-                fontSize: '9px',
+                fontSize: '12px',
                 color: i === lines.length - 1 ? '#e94560' : '#ccccee',
-                wordWrap: { width: 700 },
+                wordWrap: { width: wrapW, useAdvancedWrap: true },
                 align: 'center'
-            }).setOrigin(0.5).setAlpha(0);
+            }).setOrigin(0.5, 0).setAlpha(0);
+            currentY += text.height + lineGap;
 
             this.tweens.add({
                 targets: text,
@@ -107,7 +110,7 @@ export class EndingScene extends Phaser.Scene {
         // Song credit at the very end
         const songText = this.add.text(width / 2, height - 40, '"Mad About You" - Hooverphonic', {
             fontFamily: '"Press Start 2P"',
-            fontSize: '8px',
+            fontSize: '11px',
             color: '#ffd700'
         }).setOrigin(0.5).setAlpha(0);
 
@@ -121,7 +124,7 @@ export class EndingScene extends Phaser.Scene {
         // Back to title after all text shown
         const replayText = this.add.text(width / 2, height - 15, 'Tap or press ENTER to replay', {
             fontFamily: '"Press Start 2P"',
-            fontSize: '7px',
+            fontSize: '10px',
             color: '#666688'
         }).setOrigin(0.5).setAlpha(0);
 

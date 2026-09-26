@@ -66,12 +66,12 @@ export class Level1Scene extends BaseLevel {
         mcGfx.fillRect(mcX - 8, mcY - 26, 4, 14);
         mcGfx.fillRect(mcX + 4, mcY - 26, 4, 14);
         this.add.text(mcX, mcY - 40, "McDonald's!", {
-            fontFamily: '"Press Start 2P"', fontSize: '7px', color: '#ffcc00'
+            fontFamily: '"Press Start 2P"', fontSize: '10px', color: '#ffcc00'
         }).setOrigin(0.5).setAlpha(0.7);
         
         // Baldur's Gate D20
         const d20 = this.add.text(width - 100, 100, 'D20', {
-            fontFamily: '"Press Start 2P"', fontSize: '12px', color: '#ff6666'
+            fontFamily: '"Press Start 2P"', fontSize: '15px', color: '#ff6666'
         }).setOrigin(0.5).setAlpha(0.4);
         this.tweens.add({ targets: d20, scale: 1.15, duration: 600, yoyo: true, repeat: -1 });
     }

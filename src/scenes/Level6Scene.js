@@ -50,31 +50,31 @@ export class Level6Scene extends BaseLevel {
         // Twitch screen
         this.add.rectangle(80, 80, 35, 25, 0x9146ff, 0.5);
         this.add.text(80, 80, 'TWITCH', {
-            fontFamily: '"Press Start 2P"', fontSize: '5px', color: '#ffffff'
+            fontFamily: '"Press Start 2P"', fontSize: '8px', color: '#ffffff'
         }).setOrigin(0.5).setAlpha(0.6);
         this.add.text(80, 100, 'Where it started!', {
-            fontFamily: '"Press Start 2P"', fontSize: '5px', color: '#bb88ff'
+            fontFamily: '"Press Start 2P"', fontSize: '8px', color: '#bb88ff'
         }).setOrigin(0.5).setAlpha(0.4);
         
         // Home Sweet Home sign
         const homeSign = this.add.text(width / 2, 40, 'Home Sweet Home', {
-            fontFamily: '"Press Start 2P"', fontSize: '9px', color: '#ffddaa'
+            fontFamily: '"Press Start 2P"', fontSize: '12px', color: '#ffddaa'
         }).setOrigin(0.5).setAlpha(0.5);
         this.tweens.add({ targets: homeSign, scale: 1.1, duration: 1200, yoyo: true, repeat: -1 });
         
         // Pug zone
         this.add.text(width - 100, height - 30, 'Future pug zone!', {
-            fontFamily: '"Press Start 2P"', fontSize: '6px', color: '#ffcc88'
+            fontFamily: '"Press Start 2P"', fontSize: '9px', color: '#ffcc88'
         }).setOrigin(0.5).setAlpha(0.4);
         
         // CIV VI on shelf
         this.add.text(width - 60, 80, 'CIV VI', {
-            fontFamily: '"Press Start 2P"', fontSize: '7px', color: '#ffcc44'
+            fontFamily: '"Press Start 2P"', fontSize: '10px', color: '#ffcc44'
         }).setOrigin(0.5).setAlpha(0.4);
         
         // Faiar stream reference
         this.add.text(width - 100, 130, 'Faiar is live!', {
-            fontFamily: '"Press Start 2P"', fontSize: '6px', color: '#ff4444'
+            fontFamily: '"Press Start 2P"', fontSize: '9px', color: '#ff4444'
         }).setOrigin(0.5).setAlpha(0.3);
     }
 

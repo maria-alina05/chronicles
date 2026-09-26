@@ -35,7 +35,7 @@ export class LevelSelectScene extends Phaser.Scene {
         // Title
         this.add.text(width / 2, height * 0.06, 'Select Chapter', {
             fontFamily: '"Press Start 2P"',
-            fontSize: isLandscape ? '14px' : '16px',
+            fontSize: isLandscape ? '17px' : '19px',
             color: '#ffd700'
         }).setOrigin(0.5);
 
@@ -44,8 +44,8 @@ export class LevelSelectScene extends Phaser.Scene {
         const cols = isLandscape ? 3 : 2;
         const rows = Math.ceil(levels.length / cols);
         
-        const cardW = isLandscape ? Math.min(280, (width - 80) / cols) : Math.min(240, (width - 60) / cols);
-        const cardH = isLandscape ? Math.min(130, (height - 100) / rows) : Math.min(120, (height - 100) / rows);
+        const cardW = isLandscape ? Math.min(280, (width - 80) / cols) : Math.min(260, (width - 48) / cols);
+        const cardH = isLandscape ? Math.min(130, (height - 100) / rows) : Math.min(140, (height - 100) / rows);
         const gapX = (width - cols * cardW) / (cols + 1);
         const gapY = (height - 60 - rows * cardH) / (rows + 1);
         const startY = 60 + gapY;
@@ -66,23 +66,23 @@ export class LevelSelectScene extends Phaser.Scene {
             // Level number
             this.add.text(cx, cy - cardH * 0.25, `${level.id}`, {
                 fontFamily: '"Press Start 2P"',
-                fontSize: '16px',
+                fontSize: '20px',
                 color: '#ffd700'
             }).setOrigin(0.5);
 
             // Title
             this.add.text(cx, cy + 4, level.title, {
                 fontFamily: '"Press Start 2P"',
-                fontSize: '7px',
+                fontSize: '10px',
                 color: '#ffffff',
                 align: 'center',
-                wordWrap: { width: cardW - 30 }
+                wordWrap: { width: cardW - 24 }
             }).setOrigin(0.5);
 
             // Date
             this.add.text(cx, cy + cardH * 0.30, level.date, {
                 fontFamily: '"Press Start 2P"',
-                fontSize: '6px',
+                fontSize: '9px',
                 color: '#888899'
             }).setOrigin(0.5);
 
@@ -99,14 +99,17 @@ export class LevelSelectScene extends Phaser.Scene {
         }
 
         // Back button
-        const backBtn = this.add.text(20, height - 30, '< Back', {
+        const backBtnBg = this.add.rectangle(70, height - 30, 120, 48, 0x222244, 0.85)
+            .setStrokeStyle(2, 0x666699)
+            .setInteractive({ useHandCursor: true });
+        const backBtn = this.add.text(70, height - 30, '< Back', {
             fontFamily: '"Press Start 2P"',
-            fontSize: '8px',
-            color: '#888899'
-        }).setInteractive({ useHandCursor: true });
-        backBtn.on('pointerover', () => backBtn.setColor('#ffffff'));
-        backBtn.on('pointerout', () => backBtn.setColor('#888899'));
-        backBtn.on('pointerdown', () => {
+            fontSize: '12px',
+            color: '#cccccc'
+        }).setOrigin(0.5);
+        backBtnBg.on('pointerover', () => backBtn.setColor('#ffffff'));
+        backBtnBg.on('pointerout', () => backBtn.setColor('#cccccc'));
+        backBtnBg.on('pointerdown', () => {
             this.cameras.main.fadeOut(300);
             this.time.delayedCall(300, () => {
                 this.scene.start('CharacterSelectScene');

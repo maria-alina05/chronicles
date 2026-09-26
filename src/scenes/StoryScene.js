@@ -145,19 +145,21 @@ export class StoryScene extends Phaser.Scene {
         const level = GAME_DATA.levels[this.levelIndex];
         const isLandscape = width > height;
         const wrapW = Math.min(width - 60, 700);
-        const fontSize = isLandscape ? '8px' : '9px';
+        const fontSize = isLandscape ? '11px' : '12px';
         
         // Level title card - proportional Y positions
         const dateText = this.add.text(width / 2, height * 0.12, level.date, {
             fontFamily: '"Press Start 2P"',
-            fontSize: '12px',
+            fontSize: '15px',
             color: '#ffd700'
         }).setOrigin(0.5).setAlpha(0);
 
         const titleText = this.add.text(width / 2, height * 0.20, `Level ${level.id}: ${level.title}`, {
             fontFamily: '"Press Start 2P"',
-            fontSize: isLandscape ? '14px' : '18px',
-            color: '#e94560'
+            fontSize: isLandscape ? '17px' : '21px',
+            color: '#e94560',
+            align: 'center',
+            wordWrap: { width: wrapW, useAdvancedWrap: true }
         }).setOrigin(0.5).setAlpha(0);
 
         const descText = this.add.text(width / 2, height * 0.32, level.description, {
@@ -224,7 +226,7 @@ export class StoryScene extends Phaser.Scene {
         if (level.flowers) {
             const warningText = this.add.text(width / 2, height * 0.78, '! Flowers ahead - Zanuff, protect Marabeige!', {
                 fontFamily: '"Press Start 2P"',
-                fontSize: '8px',
+                fontSize: '11px',
                 color: '#ff8844',
                 wordWrap: { width: wrapW },
                 align: 'center'
@@ -241,7 +243,7 @@ export class StoryScene extends Phaser.Scene {
         // Continue prompt
         const continueText = this.add.text(width / 2, height * 0.90, 'Tap to start', {
             fontFamily: '"Press Start 2P"',
-            fontSize: '10px',
+            fontSize: '13px',
             color: '#ffffff'
         }).setOrigin(0.5).setAlpha(0);
 
@@ -286,14 +288,16 @@ export class StoryScene extends Phaser.Scene {
         // Victory banner
         this.add.text(width / 2, height * 0.10, 'LEVEL COMPLETE!', {
             fontFamily: '"Press Start 2P"',
-            fontSize: isLandscape ? '16px' : '20px',
+            fontSize: isLandscape ? '19px' : '23px',
             color: '#ffd700'
         }).setOrigin(0.5);
 
         this.add.text(width / 2, height * 0.18, level.title, {
             fontFamily: '"Press Start 2P"',
-            fontSize: isLandscape ? '12px' : '14px',
-            color: '#e94560'
+            fontSize: isLandscape ? '15px' : '17px',
+            color: '#e94560',
+            align: 'center',
+            wordWrap: { width: wrapW, useAdvancedWrap: true }
         }).setOrigin(0.5);
 
         // Characters celebrating
@@ -330,7 +334,7 @@ export class StoryScene extends Phaser.Scene {
             const color = i % 2 === 0 ? '#aaddff' : '#ffaadd';
             this.add.text(width / 2, afterStartY + i * afterSpacing, `"${line}"`, {
                 fontFamily: '"Press Start 2P"',
-                fontSize: isLandscape ? '8px' : '9px',
+                fontSize: isLandscape ? '11px' : '12px',
                 color: color,
                 wordWrap: { width: wrapW },
                 align: 'center'
@@ -344,7 +348,7 @@ export class StoryScene extends Phaser.Scene {
         
         const continueText = this.add.text(width / 2, height * 0.90, promptText, {
             fontFamily: '"Press Start 2P"',
-            fontSize: '10px',
+            fontSize: '13px',
             color: '#ffffff'
         }).setOrigin(0.5);
 
@@ -380,16 +384,16 @@ export class StoryScene extends Phaser.Scene {
 
     showTextSequence(lines, width, height, onComplete) {
         let currentLine = 0;
-        const textObjects = [];
-        const isLandscape = width > height;
-        const lineSpacing = isLandscape ? 22 : 25;
+        const wrapW = Math.min(width - 60, 480);
+        const lineGap = 14;
+        let cursorY = height * 0.5;
 
         const showNext = () => {
             if (currentLine >= lines.length) {
                 // Show continue prompt
                 const cont = this.add.text(width / 2, height * 0.92, 'Tap to continue', {
                     fontFamily: '"Press Start 2P"',
-                    fontSize: '10px',
+                    fontSize: '13px',
                     color: '#ffffff'
                 }).setOrigin(0.5);
                 this.tweens.add({
@@ -404,14 +408,14 @@ export class StoryScene extends Phaser.Scene {
                 return;
             }
 
-            const yPos = height * 0.65 + currentLine * lineSpacing;
-            const text = this.add.text(width / 2, yPos, lines[currentLine], {
+            const text = this.add.text(width / 2, cursorY, lines[currentLine], {
                 fontFamily: '"Press Start 2P"',
-                fontSize: '10px',
+                fontSize: '13px',
                 color: '#ccccee',
-                wordWrap: { width: 700 },
-                align: 'center'
-            }).setOrigin(0.5).setAlpha(0);
+                align: 'center',
+                wordWrap: { width: wrapW, useAdvancedWrap: true }
+            }).setOrigin(0.5, 0).setAlpha(0);
+            cursorY += text.height + lineGap;
 
             this.tweens.add({
                 targets: text,

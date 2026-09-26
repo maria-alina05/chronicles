@@ -15,7 +15,7 @@ export class BootScene extends Phaser.Scene {
         // Create a simple loading animation
         const text = this.add.text(480, 270, 'Loading...', {
             fontFamily: '"Press Start 2P"',
-            fontSize: '16px',
+            fontSize: '20px',
             color: '#e94560'
         }).setOrigin(0.5);
 

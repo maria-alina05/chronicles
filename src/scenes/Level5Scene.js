@@ -51,7 +51,7 @@ export class Level5Scene extends BaseLevel {
         
         // MARRIED badge
         const badge = this.add.text(width - 80, height - 40, 'MARRIED!', {
-            fontFamily: '"Press Start 2P"', fontSize: '10px', color: '#ffd700'
+            fontFamily: '"Press Start 2P"', fontSize: '13px', color: '#ffd700'
         }).setOrigin(0.5).setAlpha(0.5);
         this.tweens.add({ targets: badge, scale: 1.2, duration: 600, yoyo: true, repeat: -1 });
         
@@ -62,7 +62,7 @@ export class Level5Scene extends BaseLevel {
         sphere.fillStyle(0xffffff, 0.3);
         sphere.fillCircle(80, height - 40, 6);
         this.add.text(80, height - 60, 'Catch rate: 100%', {
-            fontFamily: '"Press Start 2P"', fontSize: '6px', color: '#88ccff'
+            fontFamily: '"Press Start 2P"', fontSize: '9px', color: '#88ccff'
         }).setOrigin(0.5).setAlpha(0.4);
     }
 

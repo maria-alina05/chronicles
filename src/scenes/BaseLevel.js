@@ -267,7 +267,7 @@ export class BaseLevel extends Phaser.Scene {
                 if (!zone.active) { windEvent.remove(); return; }
                 const p = this.add.text(
                     x + Phaser.Math.Between(-12, 12), y + 5, '\u2191',
-                    { fontSize: '8px', color: '#666688' }
+                    { fontSize: '10px', color: '#666688' }
                 ).setAlpha(0.5);
                 this.tweens.add({
                     targets: p, y: p.y - 25, alpha: 0, duration: 700,
@@ -370,7 +370,7 @@ export class BaseLevel extends Phaser.Scene {
                 if (!zone.active) { smellEvent.remove(); return; }
                 const p = this.add.text(
                     x + Phaser.Math.Between(-10, 10), y - 10, '~',
-                    { fontSize: '10px', color: '#88ff88' }
+                    { fontSize: '12px', color: '#88ff88' }
                 ).setAlpha(0.5);
                 this.tweens.add({
                     targets: p, y: p.y - 20, alpha: 0, duration: 900,
@@ -409,7 +409,7 @@ export class BaseLevel extends Phaser.Scene {
         // Pickup effect
         const text = this.add.text(gem.x, gem.y - 10, `+${gem.getData('value')} XP`, {
             fontFamily: '"Press Start 2P"',
-            fontSize: '7px',
+            fontSize: '10px',
             color: '#44ff88'
         }).setOrigin(0.5).setDepth(50);
         this.tweens.add({
@@ -435,7 +435,7 @@ export class BaseLevel extends Phaser.Scene {
         // Sneeze!
         const sneeze = this.add.text(player.x, player.y - 30, 'ACHOO!', {
             fontFamily: '"Press Start 2P"',
-            fontSize: '10px',
+            fontSize: '13px',
             color: '#ffff00'
         }).setOrigin(0.5).setDepth(50);
         this.tweens.add({
@@ -467,7 +467,7 @@ export class BaseLevel extends Phaser.Scene {
         
         const text = this.add.text(player.x, player.y - 30, msg, {
             fontFamily: '"Press Start 2P"',
-            fontSize: '8px',
+            fontSize: '11px',
             color: '#aaaaff'
         }).setOrigin(0.5).setDepth(50);
         this.tweens.add({
@@ -488,7 +488,7 @@ export class BaseLevel extends Phaser.Scene {
         
         const text = this.add.text(player.x, player.y - 30, 'DISGUSTING! Melon!!', {
             fontFamily: '"Press Start 2P"',
-            fontSize: '7px',
+            fontSize: '10px',
             color: '#88ff88'
         }).setOrigin(0.5).setDepth(50);
         this.tweens.add({
@@ -557,7 +557,7 @@ export class BaseLevel extends Phaser.Scene {
         
         const titleText = this.add.text(width / 2, height * 0.18, `LEVEL ${player.level}!`, {
             fontFamily: '"Press Start 2P"',
-            fontSize: isLandscape ? '16px' : '18px',
+            fontSize: isLandscape ? '19px' : '21px',
             color: '#ffd700'
         }).setOrigin(0.5).setDepth(101);
         
@@ -570,16 +570,16 @@ export class BaseLevel extends Phaser.Scene {
             let bx, by, btnW, btnH;
             if (isLandscape) {
                 // Side by side in landscape
-                btnW = 260;
-                btnH = 120;
+                btnW = 280;
+                btnH = 140;
                 bx = width / 4 + i * (width / 4) - 30;
                 by = height * 0.58;
             } else {
                 // Stacked in portrait
-                btnW = Math.min(380, width - 40);
-                btnH = 90;
+                btnW = Math.min(440, width - 24);
+                btnH = 112;
                 bx = width / 2;
-                by = height * 0.28 + i * (height * 0.22);
+                by = height * 0.30 + i * (height * 0.24);
             }
             
             const btn = this.add.rectangle(bx, by, btnW, btnH, 0x222244, 0.95)
@@ -587,15 +587,15 @@ export class BaseLevel extends Phaser.Scene {
                 .setDepth(101)
                 .setInteractive({ useHandCursor: true });
             
-            const nameText = this.add.text(bx, by - 18, choice.name, {
+            const nameText = this.add.text(bx, by - 22, choice.name, {
                 fontFamily: '"Press Start 2P"',
-                fontSize: '10px',
+                fontSize: '13px',
                 color: choice.color || '#ffffff'
             }).setOrigin(0.5).setDepth(102);
             
-            const descText = this.add.text(bx, by + 10, choice.desc, {
+            const descText = this.add.text(bx, by + 14, choice.desc, {
                 fontFamily: '"Press Start 2P"',
-                fontSize: '7px',
+                fontSize: '10px',
                 color: '#aaaacc',
                 align: 'center',
                 wordWrap: { width: btnW - 40 }
@@ -794,7 +794,7 @@ export class BaseLevel extends Phaser.Scene {
         const livesText = this.add.text(width / 2, 100,
             `${player.playerName}: ${player.lives} lives left`, {
             fontFamily: '"Press Start 2P"',
-            fontSize: '10px',
+            fontSize: '13px',
             color: '#ffffff'
         }).setOrigin(0.5).setDepth(80);
         this.tweens.add({
@@ -825,19 +825,19 @@ export class BaseLevel extends Phaser.Scene {
         
         this.add.text(width / 2, height / 2 - 40, deathMsg, {
             fontFamily: '"Press Start 2P"',
-            fontSize: '22px',
+            fontSize: '26px',
             color: '#ff4444'
         }).setOrigin(0.5).setDepth(101);
         
         this.add.text(width / 2, height / 2 + 20, `Score: ${this.score}  |  Kills: ${this.player.killCount}`, {
             fontFamily: '"Press Start 2P"',
-            fontSize: '9px',
+            fontSize: '12px',
             color: '#cccccc'
         }).setOrigin(0.5).setDepth(101);
         
         const retryText = this.add.text(width / 2, height / 2 + 70, 'Tap or press ENTER to retry', {
             fontFamily: '"Press Start 2P"',
-            fontSize: '9px',
+            fontSize: '12px',
             color: '#aaaaaa'
         }).setOrigin(0.5).setDepth(101);
         this.tweens.add({ targets: retryText, alpha: 0.3, duration: 600, yoyo: true, repeat: -1 });
@@ -858,13 +858,13 @@ export class BaseLevel extends Phaser.Scene {
         
         const victoryText = this.add.text(width / 2, height / 2 - 20, 'SURVIVED!', {
             fontFamily: '"Press Start 2P"',
-            fontSize: '24px',
+            fontSize: '28px',
             color: '#ffd700'
         }).setOrigin(0.5).setDepth(100);
         
         this.add.text(width / 2, height / 2 + 20, `Score: ${this.score}  |  Kills: ${this.player.killCount}`, {
             fontFamily: '"Press Start 2P"',
-            fontSize: '9px',
+            fontSize: '12px',
             color: '#cccccc'
         }).setOrigin(0.5).setDepth(100);
         
@@ -899,9 +899,9 @@ export class BaseLevel extends Phaser.Scene {
         this.touchPointer = null;
         
         // Joystick visuals (hidden until touch)
-        this.joystickBase = this.add.circle(0, 0, 50, 0xffffff, 0.15)
+        this.joystickBase = this.add.circle(0, 0, 62, 0xffffff, 0.15)
             .setDepth(200).setScrollFactor(0).setVisible(false);
-        this.joystickThumb = this.add.circle(0, 0, 22, 0xffffff, 0.4)
+        this.joystickThumb = this.add.circle(0, 0, 30, 0xffffff, 0.4)
             .setDepth(201).setScrollFactor(0).setVisible(false);
         
         this.input.on('pointerdown', (pointer) => {
@@ -917,7 +917,7 @@ export class BaseLevel extends Phaser.Scene {
                 const dx = pointer.x - this.touchOrigin.x;
                 const dy = pointer.y - this.touchOrigin.y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
-                const maxDist = 40;
+                const maxDist = 48;
                 
                 // Move thumb indicator (clamped to max distance)
                 if (dist > maxDist) {
@@ -961,49 +961,49 @@ export class BaseLevel extends Phaser.Scene {
         const { width } = this.cameras.main;
         
         // Health bar
-        this.healthBarBg = this.add.rectangle(width / 2, 18, 200, 14, 0x333333, 0.8)
+        this.healthBarBg = this.add.rectangle(width / 2, 20, 220, 18, 0x333333, 0.8)
             .setDepth(150).setScrollFactor(0);
-        this.healthBarFill = this.add.rectangle(width / 2, 18, 200, 14, 0xff4444, 0.9)
+        this.healthBarFill = this.add.rectangle(width / 2, 20, 220, 18, 0xff4444, 0.9)
             .setDepth(151).setScrollFactor(0);
         
         // XP bar
-        this.xpBarBg = this.add.rectangle(width / 2, 34, 160, 8, 0x222222, 0.8)
+        this.xpBarBg = this.add.rectangle(width / 2, 40, 180, 10, 0x222222, 0.8)
             .setDepth(150).setScrollFactor(0);
-        this.xpBarFill = this.add.rectangle(width / 2, 34, 0, 8, 0x44ff88, 0.9)
+        this.xpBarFill = this.add.rectangle(width / 2, 40, 0, 10, 0x44ff88, 0.9)
             .setDepth(151).setScrollFactor(0);
         
         // Level text
-        this.levelText = this.add.text(width / 2 - 105, 12, 'Lv1', {
+        this.levelText = this.add.text(width / 2 - 115, 13, 'Lv1', {
             fontFamily: '"Press Start 2P"',
-            fontSize: '8px',
+            fontSize: '11px',
             color: '#ffd700'
         }).setDepth(152).setScrollFactor(0);
         
         // Timer
-        this.timerText = this.add.text(width - 80, 12, '', {
+        this.timerText = this.add.text(width - 95, 13, '', {
             fontFamily: '"Press Start 2P"',
-            fontSize: '10px',
+            fontSize: '13px',
             color: '#ffffff'
         }).setDepth(152).setScrollFactor(0);
         
         // Score
-        this.scoreText = this.add.text(16, 12, '', {
+        this.scoreText = this.add.text(16, 13, '', {
             fontFamily: '"Press Start 2P"',
-            fontSize: '8px',
+            fontSize: '11px',
             color: '#ffd700'
         }).setDepth(152).setScrollFactor(0);
         
         // Lives
-        this.livesText = this.add.text(16, 28, '', {
+        this.livesText = this.add.text(16, 32, '', {
             fontFamily: '"Press Start 2P"',
-            fontSize: '7px',
+            fontSize: '10px',
             color: '#ff6688'
         }).setDepth(152).setScrollFactor(0);
         
         // Kill count
-        this.killText = this.add.text(width - 80, 28, '', {
+        this.killText = this.add.text(width - 95, 32, '', {
             fontFamily: '"Press Start 2P"',
-            fontSize: '7px',
+            fontSize: '10px',
             color: '#aaaacc'
         }).setDepth(152).setScrollFactor(0);
     }
@@ -1014,13 +1014,13 @@ export class BaseLevel extends Phaser.Scene {
         
         // Health bar
         const hpRatio = Math.max(0, player.health / player.maxHealth);
-        this.healthBarFill.setSize(200 * hpRatio, 14);
-        this.healthBarFill.setPosition(width / 2 - 100 + (200 * hpRatio) / 2, 18);
+        this.healthBarFill.setSize(220 * hpRatio, 18);
+        this.healthBarFill.setPosition(width / 2 - 110 + (220 * hpRatio) / 2, 20);
         
         // XP bar
         const xpRatio = player.xp / player.xpToNext;
-        this.xpBarFill.setSize(160 * xpRatio, 8);
-        this.xpBarFill.setPosition(width / 2 - 80 + (160 * xpRatio) / 2, 34);
+        this.xpBarFill.setSize(180 * xpRatio, 10);
+        this.xpBarFill.setPosition(width / 2 - 90 + (180 * xpRatio) / 2, 40);
         
         // Level
         this.levelText.setText(`Lv${player.level}`);
@@ -1050,24 +1050,31 @@ export class BaseLevel extends Phaser.Scene {
             : GAME_DATA.players.p2.inGameName;
         const color = dialog.speaker === 'zanuff' ? '#6688ff' : '#ff6688';
         const bubbleY = height * 0.12;
-        const wrapW = Math.min(width - 60, 350);
+        const wrapW = Math.min(width - 60, 420);
         
         const bubble = this.add.rectangle(width / 2, bubbleY, 10, 10, 0x111122, 0.9)
             .setStrokeStyle(1, dialog.speaker === 'zanuff' ? 0x6688ff : 0xff6688)
             .setDepth(90);
         
-        const nameText = this.add.text(width / 2, bubbleY - 10, name, {
-            fontFamily: '"Press Start 2P"', fontSize: '7px', color
-        }).setOrigin(0.5).setDepth(91);
+        const nameText = this.add.text(width / 2, 0, name, {
+            fontFamily: '"Press Start 2P"', fontSize: '20px', color
+        }).setOrigin(0.5, 0).setDepth(91);
         
-        const lineText = this.add.text(width / 2, bubbleY + 6, dialog.text, {
-            fontFamily: '"Press Start 2P"', fontSize: '7px', color: '#ffffff',
-            align: 'center', wordWrap: { width: wrapW }
-        }).setOrigin(0.5).setDepth(91);
+        const lineText = this.add.text(width / 2, 0, dialog.text, {
+            fontFamily: '"Press Start 2P"', fontSize: '20px', color: '#ffffff',
+            align: 'center', wordWrap: { width: wrapW, useAdvancedWrap: true }
+        }).setOrigin(0.5, 0).setDepth(91);
         
-        const padding = 14;
+        // Stack name above line dynamically so the bigger font can't make them overlap.
+        const textGap = 8;
+        const contentHeight = nameText.height + textGap + lineText.height;
+        const topY = bubbleY - contentHeight / 2;
+        nameText.setY(topY);
+        lineText.setY(topY + nameText.height + textGap);
+        
+        const padding = 16;
         const w = Math.max(lineText.width, nameText.width) + padding * 2;
-        const h = lineText.height + nameText.height + padding + 6;
+        const h = contentHeight + padding * 2;
         bubble.setSize(w, h);
         bubble.setPosition(width / 2, bubbleY);
         

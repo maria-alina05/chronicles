@@ -58,12 +58,12 @@ export class Level3Scene extends BaseLevel {
         const wpGlow = this.add.circle(width / 2, height - 40, 20, 0x44ccff, 0.15);
         this.tweens.add({ targets: wpGlow, scale: 1.4, alpha: 0.05, duration: 1000, yoyo: true, repeat: -1 });
         this.add.text(width / 2, height - 60, 'Waypoint!', {
-            fontFamily: '"Press Start 2P"', fontSize: '6px', color: '#66eeff'
+            fontFamily: '"Press Start 2P"', fontSize: '9px', color: '#66eeff'
         }).setOrigin(0.5).setAlpha(0.5);
         
         // "5 more minutes" bench
         this.add.text(100, height - 30, '"Just 5 more minutes..."', {
-            fontFamily: '"Press Start 2P"', fontSize: '6px', color: '#cc8855'
+            fontFamily: '"Press Start 2P"', fontSize: '9px', color: '#cc8855'
         }).setOrigin(0.5).setAlpha(0.4);
     }
 

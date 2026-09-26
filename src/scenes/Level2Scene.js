@@ -51,7 +51,7 @@ export class Level2Scene extends BaseLevel {
         // Civ 6 reference
         this.add.rectangle(width - 150, height - 60, 130, 20, 0x000022, 0.5);
         const civText = this.add.text(width - 150, height - 60, '"One more turn..."', {
-            fontFamily: '"Press Start 2P"', fontSize: '7px', color: '#aaccff'
+            fontFamily: '"Press Start 2P"', fontSize: '10px', color: '#aaccff'
         }).setOrigin(0.5);
         this.tweens.add({ targets: civText, alpha: 0.3, duration: 1500, yoyo: true, repeat: -1 });
         
@@ -63,7 +63,7 @@ export class Level2Scene extends BaseLevel {
         bmw.fillRect(60, 46, 12, 12);
         bmw.fillRect(48, 58, 12, 12);
         this.add.text(60, 80, 'BMW', {
-            fontFamily: '"Press Start 2P"', fontSize: '7px', color: '#4488cc'
+            fontFamily: '"Press Start 2P"', fontSize: '10px', color: '#4488cc'
         }).setOrigin(0.5).setAlpha(0.4);
     }
 
